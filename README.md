@@ -6,7 +6,7 @@ Imitation learning is a method used to tackle complex motion planning problems b
 
 This repository contains implementations of our two latest methods, namely:
 
-* **SNDS** — A. Abyaneh, M. Sosa, H.-C. Lin. Globally stable imitation policies. Submitted to International Conference on Robotics and Automation, 2024.
+* **SNDS** — A. Abyaneh, M. Sosa, H.-C. Lin. Globally stable neural imitation policies. International Conference on Robotics and Automation, 2024.
 
 * **PLYDS** — A. Abyaneh and H.-C. Lin. Learning Lyapunov-stable polynomial dynamical systems through imitation. In 7th Annual
 Conference on Robot Learning, 2023.
