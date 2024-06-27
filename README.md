@@ -2,9 +2,9 @@
 
 ## Overview
 
-Imitation learning is a method used to tackle complex motion planning problems by training a policy to imitate an expert's behavior. However, relying solely on the expert's data can result in unsafe behaviors when the robot encounters situations that deviate from the demonstrated trajectories. To address this issue, we try various techniques for learning a stable nonlinear dynamical system as a motion planning policy.
+Imitation learning can be leveraged to tackle complex motion planning problems by training a policy to imitate an expert's behavior. However, relying solely on the expert's data can result in unsafe behaviors when the robot encounters unknown regions of the state space. To address this issue, we try various techniques for learning a stable nonlinear dynamical system as a motion planning policy.
 
-This repository contains implementations of our two latest methods, namely:
+This repository contains implementations of our two recently published efforts, namely:
 
 * **SNDS** — A. Abyaneh, M. Sosa, H.-C. Lin. Globally stable neural imitation policies. International Conference on Robotics and Automation, 2024.
 
@@ -68,7 +68,7 @@ Nonlinear DS experiments CLI interface.
 
 optional arguments:
   -h, --help            show this help message and exit
-  -nt NEURAL_TOOL, --nonlinear-tool NEURAL_TOOL
+  -nt NEURAL_TOOL, --neural-tool NEURAL_TOOL
                         The nonlinear policy or tool
                         among snds, sdsef, nn.
   -m MODE, --mode MODE  Mode between train and test. Test mode only loads the model with the provided name.
@@ -99,16 +99,6 @@ python rlds_training.py -h
 ```
 
 This option works for any other python file in the folder.
-
-
-Additionally, within the folder, there is a file named [experiments.bash](exp/experiments.sh) which allows you to reproduce all the plots mentioned in the paper given an integer as the number of trials.
-
-```bash
-chmod +x experiments.bash
-./experiments.bash 10
-```
-
-Keep in mind that this process may take some time as certain baselines require GPU acceleration to speed up computations.
 
 Make sure you are familiar with the command-line interface (CLI) options to save or plot the results, as they play a crucial role in obtaining the desired output. For instance, for PLYDS:
 
@@ -143,7 +133,7 @@ optional arguments:
                          Simplify to non-parametric LPF if activated.
 ```
 
-One can then use [plot_results.py](exp/plot_results.py) or see the output policies stored in the specified directories. Also, the file [batch_learning.py](exp/batch_baselining.py) enables multiple experiments for each of the baselines and PLYDS with just setting the argument.
+The file [batch_learning.py](exp/batch_baselining.py) enables multiple experiments for each of the baselines and PLYDS with just setting the argument.
 
 ## Contributing
 
@@ -151,13 +141,22 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Citation
 
-Please use the following BibTeX formatted **citation**:
+Please use the following BibTeX formatted **citation** for PLYDS:
 ```
 @inproceedings{abyaneh2023learning,
   title={Learning Lyapunov-Stable Polynomial Dynamical Systems Through Imitation},
   author={Abyaneh, Amin and Lin, Hsiu-Chin},
   booktitle={7th Annual Conference on Robot Learning},
   year={2023}
+}
+```
+and SNDS:
+```
+@article{abyaneh2024globally,
+  title={Globally Stable Neural Imitation Policies},
+  author={Abyaneh, Amin and Guzm{\'a}n, Mariana Sosa and Lin, Hsiu-Chin},
+  journal={arXiv preprint arXiv:2403.04118},
+  year={2024}
 }
 ```
 
