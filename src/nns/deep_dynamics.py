@@ -167,24 +167,12 @@ class SRVDMetric(nn.Module):
         return srvd_distance
 
 
-def prepare_torch_dataset(trajs: np.ndarray, vels: np.ndarray, batch_size: int):
-    """ Convert npy data to tensor dataset.
+class ReHU(nn.Module):
+    """Rectified Huber unit"""
+    def __init__(self, d):
+        super().__init__()
+        self.a = 1/d
+        self.b = -d/2
 
-    Args:
-        trajs (np.ndarray): Demonstrated trajectories.
-        vels (np.ndarray): Demonstrated velocities.
-        batch_size (int): Size of data batches for the loader.
-    """
-
-    # convert npy to tensor
-    x, y = torch.from_numpy(trajs.astype(np.float32)), torch.from_numpy(vels.astype(np.float32))
-
-    x.requires_grad = True
-    y.requires_grad = True
-
-    x = x.to(device=torch.device("cuda"))
-    y = y.to(device=torch.device("cuda"))
-
-    # generate a dataloader
-    dataset = TensorDataset(x, y)
-    return DataLoader(dataset, batch_size=batch_size, shuffle=True)
+    def forward(self, x):
+        return torch.max(torch.clamp(torch.sign(x)*self.a/2*x**2,min=0,max=-self.b),x+self.b)
