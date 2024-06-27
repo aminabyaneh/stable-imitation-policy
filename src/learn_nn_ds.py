@@ -97,7 +97,7 @@ class NL_DS(PlanningPolicyInterface):
             self.__fhat.train()
 
             # training epochs
-            for epoch in (par := tqdm(range(200))):
+            for epoch in (par := tqdm(range(50))):
                 # iterate over minibatches
                 train_losses = []
 

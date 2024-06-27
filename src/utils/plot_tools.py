@@ -7,7 +7,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-from typing import List
+from typing import List, Union
 from matplotlib.patches import Ellipse, Patch
 
 
@@ -144,7 +144,7 @@ def plot_ds_stream(ds, trajectory: np.ndarray, title: str = None,
                    file_name: str = "", save_dir: str = "", n_samples: int = 1000,
                    other_starts: List[np.ndarray] = None, n_reprod_trajs: int = 3,
                    show_legends: bool = True, show_rollouts: bool = True,
-                   show_arrows: bool = False):
+                   show_arrows: bool = False, save_rollouts: bool = False):
     """ Plot a policy for given a DS model and trajectories.
 
     Args:
@@ -244,7 +244,10 @@ def plot_ds_stream(ds, trajectory: np.ndarray, title: str = None,
             simulated_traj = np.array(simulated_traj)
             simulated_traj = simulated_traj.reshape(simulated_traj.shape[0],
                                                     simulated_traj.shape[2])
-            np.save(f'rollout_{idx}', simulated_traj)
+
+            if save_rollouts:
+                name = file_name if file_name != "" else 'plot'
+                np.save(os.path.join(save_dir, name, f'_rollout_{idx}'), simulated_traj)
             plt.plot(simulated_traj[:, 0], simulated_traj[:, 1],
                     color=PlotConfigs.ROLLOUT_COLOR, linewidth=2)
 
@@ -262,9 +265,9 @@ def plot_ds_stream(ds, trajectory: np.ndarray, title: str = None,
     blue_dots = plt.Line2D([0], [0], color=PlotConfigs.TRAJECTORY_COLOR,
                            marker='o', label='Expert Demonstrations')
 
-    # if show_legends:
-    #     plt.xlabel('X1', fontsize=PlotConfigs.LABEL_SIZE)
-    #     plt.ylabel('X2', fontsize=PlotConfigs.LABEL_SIZE)
+    if show_legends:
+        plt.xlabel('X1', fontsize=PlotConfigs.LABEL_SIZE)
+        plt.ylabel('X2', fontsize=PlotConfigs.LABEL_SIZE)
 
     plt.tick_params(axis='both', which='both', labelsize=PlotConfigs.TICKS_SIZE)
 
@@ -284,7 +287,7 @@ def plot_ds_stream(ds, trajectory: np.ndarray, title: str = None,
         plt.show()
 
 
-def multi_curve_plot_errorband(xs: List[str] or np.ndarray, y_means: List[np.ndarray],
+def multi_curve_plot_errorband(xs: Union[List[str], np.ndarray], y_means: List[np.ndarray],
         y_vars: List[np.ndarray], legends: List[str] = None, xlabel: str = "X",
         std_exaggeration: float = 1.0, ylabel: str = "Y",
         file_name: str = "", save_dir: str = "", use_boxes: bool = True,

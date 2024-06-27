@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 sys.path.append(os.path.join(os.pardir, 'src'))
 
 from learn_nn_ds import NL_DS
-from utils.utils import mse, time_stamp
+from utils.utils import time_stamp
 from utils.log_config import logger
 from utils.data_loader import load_snake_data
 from utils.plot_tools import plot_ds_stream, plot_trajectory, plot_contours
@@ -76,13 +76,13 @@ if __name__ == '__main__':
         help='The neural policy or tool among snds, nn, sdsef.')
     parser.add_argument('-m', '--mode', type=str, default="train",
         help='Mode between train and test. Test mode only loads the model with the provided name.')
-    parser.add_argument('-ms', '--motion-shape', type=str, default="GShape",
+    parser.add_argument('-ms', '--motion-shape', type=str, default="Worm",
         help='Shape of the trajectories as in LASA dataset.')
     parser.add_argument('-nd', '--num-demonstrations', type=int, default=7,
         help='Number of additional demonstrations to the original dataset.')
     parser.add_argument('-ne', '--num-epochs', type=int, default=10000,
         help='Number of training epochs.')
-    parser.add_argument('-sp', '--show-plots', action='store_true', default=False,
+    parser.add_argument('-sp', '--show-plots', action='store_true', default=True,
         help='Show extra plots of final result and trajectories.')
     parser.add_argument('-sm', '--save-model', action='store_true', default=False, help='Save the model in the res folder.')
     parser.add_argument('-sd', '--save-dir', type=str,
@@ -90,6 +90,6 @@ if __name__ == '__main__':
         help='Optional destination for save/load.')
     args = parser.parse_args()
 
-    train_neural_policy(args.nonlinear_tool, args.mode, args.motion_shape,
+    train_neural_policy(args.neural_tool, args.mode, args.motion_shape,
         args.num_demonstrations, args.num_epochs, args.show_plots,
         save=args.save_model, save_dir=args.save_dir)
