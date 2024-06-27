@@ -4,7 +4,7 @@
 import os
 import sys
 
-from typing import Tuple
+from typing import Tuple, Union
 from tqdm.auto import tqdm
 
 import numpy as np
@@ -16,7 +16,7 @@ from utils.log_config import logger
 from utils.utils import calibrate, is_negdef, linear_ds, normalize
 
 import pyLasaDataset as hw_data_module
-lasa_selected_motions = ["N"] # ["G", "P", "Sine", "Worm", "Angle", "C", "N", "DBLine"]
+lasa_selected_motions = ["GShape", "PShape", "Sine", "Worm", "Angle", "CShape", "NShape", "DoubleBendedLine"]
 lasa_dataset_motions = hw_data_module.dataset.NAMES_
 
 # dataset configs
@@ -56,7 +56,7 @@ def load_snake_data(data_dir: str = "../data/"):
     return (pos.T, vel.T)
 
 
-def load_mat_data(motion_shape: str, data_dir: str or None = None):
+def load_mat_data(motion_shape: str, data_dir: Union[str, None]= None):
     """ Load LASA dataset when it's in raw mat form from a specific dir.
 
     Note: Leave the data_dir parameter to None in order to load from default dir.
@@ -119,13 +119,16 @@ def load_pylasa_data(motion_shape: str = "Angle", plot_data: bool = False,
                 space. The first and second rows correspond to
                 x and y axes in the Cartesian space, respectively.
             - demons{n}.t (1 x 1000): vector indicating the corresponding time
-                for each datapoint.
+                for each data point.
             - demos{n}.vel (2 x 1000): matrix representing the velocity of the motion.
             - demos{n}.acc (2 x 1000): matrix representing the acceleration of the motion.
 
     Args:
         motion_shape (str, optional): Choose a motion shape. A list of possible options
-            may be found in this file. Defaults to "Angle".
+            may be found in this file. Defaults to "Angle". Possible options are [Angle, GShape, CShape,
+            BendedLine, JShape, Multi_Models_1 to Multi_Models_4, Snake, Sine, Worm, PShape, etc.]. Complete list
+            can be found in hw_data_module.dataset.NAMES_.
+
         plot_data (bool, optional): Whether to plot the designated motion or not. Defaults to False.
 
     Raises:
@@ -136,35 +139,11 @@ def load_pylasa_data(motion_shape: str = "Angle", plot_data: bool = False,
     """
 
     # list of tested motion data
-    if motion_shape == "Angle":
-        data = hw_data_module.DataSet.Angle
-    elif motion_shape == "Sine":
-        data = hw_data_module.DataSet.Sine
-    elif motion_shape == "C":
-        data = hw_data_module.DataSet.CShape
-    elif motion_shape == "G":
-        data = hw_data_module.DataSet.GShape
-    elif motion_shape == "Worm":
-        data = hw_data_module.DataSet.Worm
-    elif motion_shape == "DBLine":
-        data = hw_data_module.DataSet.DoubleBendedLine
-    elif motion_shape == "N":
-        data = hw_data_module.DataSet.NShape
-    elif motion_shape == "P":
-        data = hw_data_module.DataSet.PShape
-    elif motion_shape == "Trapezoid":
-        data = hw_data_module.DataSet.Trapezoid
-    elif motion_shape == "MM1":
-        data = hw_data_module.DataSet.Multi_Models_1
-    elif motion_shape == "MM2":
-        data = hw_data_module.DataSet.Multi_Models_2
-    elif motion_shape == "MM3":
-        data = hw_data_module.DataSet.Multi_Models_3
-    elif motion_shape == "MessySnake":
+    if motion_shape == "MessySnake":
         pos, vel = load_snake_data()
         return pos, vel
     else:
-        raise NotImplementedError("Implement Pylasa wrapper for this motion!")
+        data = getattr(hw_data_module.DataSet, motion_shape)
 
     # extract pos and vel data
     pos_list = list()
@@ -206,7 +185,7 @@ def generate_synthetic_linear_data(A: np.matrix, start_point: Tuple[float, float
                                 x_dot = A * x + b + epsilon
 
     this function samples some points uniformly scattered in the state space and
-    uses Gaussian additive noise to model the stochasticness of the real-world data.
+    uses Gaussian additive noise to model the randomness of the real-world data.
 
     Args:
         A (np.matrix): Matrix A of the dynamical system ODE model.
@@ -320,7 +299,7 @@ def generate_synthetic_data_trajs(A: np.matrix, start_point: Tuple[float, float]
                                     x_dot = A * x + b
 
     this function produces synthetic trajectories given and uses Gaussian
-    additive noise to model the stochasticness of the real-world data.
+    additive noise to model the randomness of the real-world data.
 
     The final data is generated based on the following process:
 

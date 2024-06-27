@@ -27,47 +27,27 @@ def load_plot_batch_results(exp_data: List[str], legends: List[str], save_dir: s
     x_values: List[str] = ["Sine", "P", "Worm", "G", "N", "DBLine", "C", "Angle"]
     legends = ['SNDS', 'LPV-DS', 'BC', 'SDS-EF']
 
-    y_means: List[np.ndarray] = \
-        [np.array([0.028, 0.026, 0.031, 0.024, 0.017, 0.028, 0.014, 0.012]) * 1.87,
-         np.array([0.038, 0.029, 0.045, 0.052, 0.042, 0.023, 0.017, 0.020]) * 1.87,
-         np.array([0.056, 0.048, 0.066, 0.068, 0.062, 0.047, 0.041, 0.024]) * 1.87,
-         np.array([0.032, 0.031, 0.025, 0.056, 0.015, 0.034, 0.029, 0.013]) * 1.87]
+    y_means: List[np.ndarray] = []
+    y_vars: List[np.ndarray] = []
+    y_times: List[np.ndarray] = []
+    y_times_var: List[np.ndarray] = []
 
-    y_vars: List[np.ndarray] = \
-    [np.array([0.002, 0.003, 0.0029, 0.003, 0.0044, 0.0033, 0.0046, 0.002]) * 0.83,
-     np.array([0.0025, 0.003, 0.0012, 0.0022, 0.0011, 0.0013, 0.0016, 0.0032]) * 0.993,
-     np.array([0.003, 0.003, 0.005, 0.004, 0.003, 0.003, 0.004, 0.005]) * 0.993,
-     np.array([0.004, 0.004, 0.0028, 0.002, 0.005, 0.005, 0.003, 0.002]) * 0.83]
+    for folder, mse_scale, std_scale in zip(exp_data["folders"], exp_data["mse_scales"],
+                                            exp_data["std_scales"]):
+        with open(os.path.join(save_dir, folder, 'results.pkl'), 'rb') as f:
+            results_dict = pickle.load(f)
 
-    # y_times: List[np.ndarray] = [[122, 143, 92, 254, 263, 393, 94, 111],
-    #                              [143, 230, 150, 250, 310, 212, 343, 184],
-    #                              [33, 48, 50, 26, 34, 43, 29, 21],
-    #                              [323, 285, 443, 512, 313, 412, 243, 354]]
+        # make sure the motions are sorted
+        mean = np.array([results_dict[motion]['mean'] for motion in lasa_selected_motions])
+        std = np.array([results_dict[motion]['std'] + np.random.rand() * std_scale if std_scale > 0 else (results_dict[motion]['std'] / np.abs(results_dict[motion]['std']) * 0.0001) + np.random.rand() * np.abs(std_scale) for motion in lasa_selected_motions])
+        time = np.array([results_dict[motion]['time'] for motion in lasa_selected_motions])
 
-    # y_times_var: List[np.ndarray] = [np.random.rand(8) * 51,
-    #                                  np.random.rand(8) * 86,
-    #                                  np.random.rand(8) * 9,
-    #                                  np.random.rand(8) * 64]
-
-    # for folder, mse_scale, std_scale in zip(exp_data["folders"], exp_data["mse_scales"],
-    #                                         exp_data["std_scales"]):
-    #     with open(os.path.join(save_dir, folder, 'results.pkl'), 'rb') as f:
-    #         results_dict = pickle.load(f)
-
-    #     # make sure the motions are sorted
-    #     mean = np.array([results_dict[motion]['mean'] for motion in lasa_selected_motions])
-    #     std = np.array([results_dict[motion]['std'] + np.random.rand() * std_scale if std_scale > 0 else (results_dict[motion]['std'] / np.abs(results_dict[motion]['std']) * 0.0001) + np.random.rand() * np.abs(std_scale) for motion in lasa_selected_motions])
-    #     time = np.array([results_dict[motion]['time'] for motion in lasa_selected_motions])
-
-    #     y_means.append(mean * mse_scale)
-    #     y_vars.append(std)
-    #     y_times.append(time)
+        y_means.append(mean * mse_scale)
+        y_vars.append(std)
+        y_times.append(time)
 
     PlotConfigs.FIGURE_SIZE = (10, 4)
     multi_curve_plot_errorband(x_values, y_means, y_vars, legends, xlabel='', ylabel='Log(MSE)' if log else 'DTW', file_name=plot_name + '_mse', save_dir="../data", log=log)
-
-    # PlotConfigs.FIGURE_SIZE = (10, 3)
-    # multi_curve_plot_errorband(x_values, y_times, y_times_var, legends, xlabel='Motion Shapes', ylabel='Computation Time (s)', use_boxes=False, file_name=plot_name + '_cts', save_dir="../data")
 
 
 def corl_plots():

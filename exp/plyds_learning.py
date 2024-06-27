@@ -6,7 +6,7 @@ import os, sys
 import argparse
 import numpy as np
 
-from typing import Tuple
+from typing import Tuple, Union
 from functools import partial
 
 sys.path.append(os.path.join(os.pardir, 'src'))
@@ -24,13 +24,13 @@ def learn_plyds_policy(plyds_deg: int = 2, lpf_deg: int = 2,
                        optimizer: str = 'cvxpy', n_dems: int = 7, simplify_lpf : bool = True,
                        plot: bool = False, save: bool = False,
                        save_dir : str = os.path.join(os.pardir, 'res', 'plyds_policy'),
-                       tol: float or int = 0.2, drop_out: float = 0.4) -> Tuple[float, PlanningPolicyInterface]:
+                       tol: Union[float, int] = 0.2, drop_out: float = 0.4) -> Tuple[float, PlanningPolicyInterface]:
     """ Learning sequence for a polynomial function to estimate a nonlinear dynamical
     system with Lyapunov stability.
 
     Args:
         plyds_deg (int, optional): Maximum degree of the dynamical system. Defaults to 2.
-        lpf_deg (int, optional): Maximum complexity of lyapunov potential function. Defaults to 2.
+        lpf_deg (int, optional): Maximum complexity of Lyapunov potential function. Defaults to 2.
         mode (str, optional): Switch between train and test modes. Defaults to 'train'.
         motion_shape (str, optional): Shape of the motion to load from Lasa dataset. Defaults to "G".
         model_name (str, optional): Name of the model to be saved. Defaults to 'test'.
@@ -87,7 +87,7 @@ def main():
         help='Switch between scipy and cvxpy optimizers.')
     parser.add_argument('-nd', '--num-demonstrations', type=int, default=50,
         help='Number of additional demonstrations to the original dataset.')
-    parser.add_argument('-ms', '--motion-shape', type=str, default="G",
+    parser.add_argument('-ms', '--motion-shape', type=str, default="GShape",
         help=f'Shape of the trajectories as in LASA dataset, pick from {lasa_selected_motions}.')
     parser.add_argument('-mn', '--model-name', type=str, default="test",
         help='Name of the trained model.')

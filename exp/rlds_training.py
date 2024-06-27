@@ -23,7 +23,7 @@ def train_rl_policy(learning_method: str = "BC", policy_agent: str = 'PPO',
 
     Args:
         learning_method(str, optional): Type of the policy learning method, could be either
-            Behavioral Cloning ("BC"), or Generative Adverserial Imitation Learning ("GAIL").
+            Behavioral Cloning ("BC"), or Generative Adversarial Imitation Learning ("GAIL").
 
         policy_agent(str, optional): Policy agent, can only be "PPO".
         motion_shape (str, optional): Shape of the trajectories. Defaults to "G".
