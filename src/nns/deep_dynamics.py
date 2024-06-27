@@ -13,11 +13,16 @@ from typing import List
 
 
 class NormalNN(nn.Module):
-    """ A conventional feed-forward neural network.
-    """
-
     def __init__(self, layer_sizes: List[int] = [2, 512, 512, 512, 256, 256, 128, 64, 2],
                  activation=nn.LeakyReLU):
+        """ Initialize a normal feed-forward neural network.
+
+        Args:
+            layer_sizes (List[int], optional): Layer sizes including input and output.
+                Defaults to [2, 512, 512, 512, 256, 256, 128, 64, 2].
+            activation (nn.Functional, optional): Activation functions of the network.
+            Defaults to nn.LeakyReLU, but a more smooth and differentiable choice is recommended.
+        """
 
         super(NormalNN, self).__init__()
         self.__model = nn.Sequential()
@@ -40,9 +45,14 @@ class NormalNN(nn.Module):
 
 class PosDefICNN(nn.Module):
     def __init__(self, layer_sizes, eps, negative_slope):
+        """ Positive definite ICNN module.
+
+        Args:
+            layer_sizes (List[int]): Size of network layers including input and output.
+            eps (float): Tolerance for quadratic functions.
+            negative_slope (float): Negative slope for linear layers.
+        """
         super().__init__()
-        self.W = nn.ParameterList([nn.Parameter(torch.Tensor(l, layer_sizes[0]))
-                                   for l in layer_sizes[1:]])
         self.W = nn.ParameterList([nn.Parameter(torch.Tensor(l, layer_sizes[0]))
                                    for l in layer_sizes[1:]])
         self.U = nn.ParameterList([nn.Parameter(torch.Tensor(layer_sizes[i+1], layer_sizes[i]))
@@ -85,6 +95,14 @@ class Calibrate(nn.Module):
 
 class Dynamics(nn.Module):
     def __init__(self, fhat, V, alpha=0.01, relaxed: bool = True):
+        """ Relaxed deep dynamics with asymptotic stability guarantees.
+
+        Args:
+            fhat (Callable, nn.module): Unstable or normal dynamics.
+            V (Callable, nn.module): Lyapunov candidate.
+            alpha (float, optional): Tolerance for exponential stability. Defaults to 0.01.
+            relaxed (bool, optional): Relax the exponential stability criteria. Defaults to True.
+        """
         super().__init__()
         self.fhat = fhat
         self.V = V
@@ -110,32 +128,63 @@ class Dynamics(nn.Module):
         return rv
 
 
-def joint_lpf_ds_model(device, lsd=2):
+def joint_lpf_ds_model(device, lsd=2, layers=[64, 64, 1]):
+    """ Unified model of stable dynamical system, ready to train.
 
+    Args:
+        device (str): Computational device.
+        lsd (int, optional): Input dimension for Lyapunov functions. Defaults to 2.
+
+    Returns:
+        _type_: _description_
+    """
     # dynamics function to learn
     fhat = Calibrate(NormalNN(), device=device)
     fhat.to(device)
 
     # convex Lyapunov function
-    V = Calibrate(PosDefICNN([lsd, 512, 512, 256, 256, 64, 1], eps=0.001, negative_slope=0.01),
+    lpf = Calibrate(PosDefICNN([lsd] + layers, eps=0.001, negative_slope=0.01),
                   device=device)
-    V.to(device)
+    lpf.to(device)
 
     # joint dynamics model
-    f = Dynamics(fhat, V, alpha=0.01, relaxed=False)
+    f = Dynamics(fhat, lpf, alpha=0.01, relaxed=False)
     f.to(device)
 
-    return f, fhat, V
+    return f, fhat, lpf
 
 
 class SRVDMetric(nn.Module):
-    """SRVD Metric for curve similarity.
-    """
     def __init__(self):
+        """SRVD metric helps gauge curve similarity more effectively than a simple MSE loss.
+        """
         super(SRVDMetric, self).__init__()
 
     def forward(self, vel1, vel2):
-        squared_velocity_diff = (vel1 - vel2)**2
+        squared_velocity_diff = (vel1 - vel2) ** 2
         sum_squared_velocity_diff = torch.sum(squared_velocity_diff)
         srvd_distance = torch.sqrt(sum_squared_velocity_diff)
         return srvd_distance
+
+
+def prepare_torch_dataset(trajs: np.ndarray, vels: np.ndarray, batch_size: int):
+    """ Convert npy data to tensor dataset.
+
+    Args:
+        trajs (np.ndarray): Demonstrated trajectories.
+        vels (np.ndarray): Demonstrated velocities.
+        batch_size (int): Size of data batches for the loader.
+    """
+
+    # convert npy to tensor
+    x, y = torch.from_numpy(trajs.astype(np.float32)), torch.from_numpy(vels.astype(np.float32))
+
+    x.requires_grad = True
+    y.requires_grad = True
+
+    x = x.to(device=torch.device("cuda"))
+    y = y.to(device=torch.device("cuda"))
+
+    # generate a dataloader
+    dataset = TensorDataset(x, y)
+    return DataLoader(dataset, batch_size=batch_size, shuffle=True)

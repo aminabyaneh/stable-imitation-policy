@@ -76,7 +76,7 @@ if __name__ == '__main__':
         help='The neural policy or tool among snds, nn, sdsef.')
     parser.add_argument('-m', '--mode', type=str, default="train",
         help='Mode between train and test. Test mode only loads the model with the provided name.')
-    parser.add_argument('-ms', '--motion-shape', type=str, default="G",
+    parser.add_argument('-ms', '--motion-shape', type=str, default="GShape",
         help='Shape of the trajectories as in LASA dataset.')
     parser.add_argument('-nd', '--num-demonstrations', type=int, default=7,
         help='Number of additional demonstrations to the original dataset.')

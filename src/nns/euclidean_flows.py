@@ -21,8 +21,8 @@ class NaturalGradientDescentVelNet(nn.Module):
     taskmap_fcn: map to a latent space
     grad_taskmap_fcn: jacobian of the map
     grad_potential_fcn: gradient of a potential fcn defined on the mapped space
-    n_dim_x: observed (input) space dimensions
-    n_dim_y: latent (output) space dimentions
+    n_dim_x: observed (input) space dimensions.
+    n_dim_y: latent (output) space dimensions.
     origin (optional): shifted origin of the input space (this is the goal usually)
     scale_vel (optional): if set to true, learns a scalar velocity multiplier
     is_diffeomorphism (optional): if set to True, use the inverse of the jacobian itself rather than pseudo-inverse
