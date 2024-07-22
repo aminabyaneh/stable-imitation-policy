@@ -27,7 +27,7 @@ To acquire a better understanding of the environment and features, you just need
     ├── exp          # Targeted experiments with various planning methods.
     ├── data         # Figures and other data.
     ├── res          # Resources like saved policies.
-    ├── sim          # Simulation files with Pybullet.
+    ├── sim          # Simulation files with PyBullet.
     ├── lib          # External libraries or reference codes.
     ├── .gitmodules  # Organizing the modules in lib folder.
     ├── LICENSE
@@ -53,7 +53,7 @@ The [exp](exp/) folder contains most of the experiments and baselines comparison
 python3 nnds_training.py -nt snds -ms Sine -sp -nd 5 -ne 10000
 ```
 
-These files utilize the Argparse library, so you can easily check their help instructions to understand their functionality and available command-line options.
+These files utilize the argparse library, so you can easily check their help instructions to understand their functionality and available command-line options.
 
 ```bash
 python nnds_training.py -h
@@ -92,7 +92,7 @@ The [exp](exp/) folder contains most of the experiments and baselines comparison
 python plyds_learning.py
 ```
 
-These files utilize the Argparse library, so you can easily check their help instructions to understand their functionality and available command-line options.
+These files utilize the argparse library, so you can easily check their help instructions to understand their functionality and available command-line options.
 
 ```bash
 python rlds_training.py -h
@@ -156,16 +156,6 @@ Please use the following BibTeX formatted **citation** for PLYDS:
   year={2023}
 }
 ```
-and SNDS:
-```
-@article{abyaneh2024globally,
-  title={Globally Stable Neural Imitation Policies},
-  author={Abyaneh, Amin and Guzm{\'a}n, Mariana Sosa and Lin, Hsiu-Chin},
-  journal={arXiv preprint arXiv:2403.04118},
-  year={2024}
-}
-```
-
 and SNDS:
 ```
 @article{abyaneh2024globally,
