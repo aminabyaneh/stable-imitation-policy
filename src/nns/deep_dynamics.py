@@ -13,13 +13,13 @@ from typing import List
 
 
 class NormalNN(nn.Module):
-    def __init__(self, layer_sizes: List[int] = [2, 512, 512, 512, 256, 256, 128, 64, 2],
+    def __init__(self, layer_sizes: List[int] = [2, 128, 128, 128, 2],
                  activation=nn.LeakyReLU):
         """ Initialize a normal feed-forward neural network.
 
         Args:
             layer_sizes (List[int], optional): Layer sizes including input and output.
-                Defaults to [2, 512, 512, 512, 256, 256, 128, 64, 2].
+                Defaults to [2, 128, 128, 128, 2].
             activation (nn.Functional, optional): Activation functions of the network.
             Defaults to nn.LeakyReLU, but a more smooth and differentiable choice is recommended.
         """
@@ -38,6 +38,15 @@ class NormalNN(nn.Module):
             self.__model.add_module(f"act_{i}", activation())
 
         self.__model.add_module(f"ol_{i}", nn.Linear(layer_sizes[-2], layer_sizes[-1]))
+
+        # Apply custom weight initialization
+        self.apply(self._initialize_weights)
+
+    def _initialize_weights(self, module):
+        if isinstance(module, nn.Linear):
+            nn.init.xavier_uniform_(module.weight)
+            if module.bias is not None:
+                nn.init.constant_(module.bias, 0)
 
     def forward(self, x):
         return self.__model(x)
@@ -128,7 +137,8 @@ class Dynamics(nn.Module):
         return rv
 
 
-def joint_lpf_ds_model(device, lsd=2, layers=[64, 64, 1]):
+def joint_lpf_ds_model(device, lsd=2, fhat_layers=[2, 256, 256, 256, 2], lpf_layers=[2, 64, 64, 1], eps: float = 0.01,
+                       alpha: float = 0.01, relaxed: bool = False):
     """ Unified model of stable dynamical system, ready to train.
 
     Args:
@@ -139,19 +149,19 @@ def joint_lpf_ds_model(device, lsd=2, layers=[64, 64, 1]):
         _type_: _description_
     """
     # dynamics function to learn
-    fhat = Calibrate(NormalNN(), device=device)
+    fhat = Calibrate(NormalNN(layer_sizes=fhat_layers), n=lsd, device=device)
     fhat.to(device)
 
     # convex Lyapunov function
-    lpf = Calibrate(PosDefICNN([lsd] + layers, eps=0.001, negative_slope=0.01),
-                  device=device)
+    lpf = Calibrate(PosDefICNN(lpf_layers, eps=eps, negative_slope=0.01),
+                   device=device)
     lpf.to(device)
 
     # joint dynamics model
-    f = Dynamics(fhat, lpf, alpha=0.01, relaxed=False)
+    f = Dynamics(fhat, lpf, alpha=alpha, relaxed=relaxed)
     f.to(device)
 
-    return f, fhat, lpf
+    return f, lpf
 
 
 class SRVDMetric(nn.Module):

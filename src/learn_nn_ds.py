@@ -28,7 +28,8 @@ class NL_DS(PlanningPolicyInterface):
     networks sounds like a plausible option for estimating nonlinear DS.
     """
 
-    def __init__(self, network: str = 'nn', data_dim: int = 2, cuda: bool = True):
+    def __init__(self, network: str = 'nn', data_dim: int = 2, gpu: bool = True, eps: float = 0.01,
+                 alpha: float = 0.01, relaxed: bool = False):
         """ Initialize a nonlinear DS estimator.
 
         Note: the 'nn' method is equivalent to using behavioral cloning.
@@ -41,29 +42,33 @@ class NL_DS(PlanningPolicyInterface):
             plot_model (bool, optional): Choose to plot or not. Defaults to False.
         """
 
-        self.__fhat = None
         self.__lpf = None
         self.__data_dim = data_dim
 
-        self.__cuda = cuda
+        # snds params
+        self.__epsilon = eps
+        self.__alpha = alpha
+        self.__relaxed = relaxed
+
+        # gpu params
+        self.__cuda = gpu
         self.__device = 'cuda:0' if torch.cuda.is_available() and self.__cuda else 'cpu'
         logger.info(f'Switching to {self.__device} for computation')
 
+        # network module
         self.__network_type = network
         self.__nn_module: nn.Module = None
         self._initialize_network()
-
         self.__nn_module.to(self.__device)
 
         logger.info(f'{network.upper()} network initialized')
         self.__dataset: DataLoader = None
 
     def fit(self, trajectory: np.ndarray, velocity: np.ndarray, n_epochs: int = 200,
-            batch_size: int = 256, show_stats: bool = True, stat_freq: int = 5,
+            batch_size: int = 128, show_stats: bool = True, stat_freq: int = 2,
             trajectory_test: np.ndarray = None, velocity_test: np.ndarray = None,
-            clip_gradient: bool = True, clip_value_grad: float = 0.1, loss_clip: float = 1e3,
-            stop_threshold: int = 3000, loss_progress_val: float = 0.1, lr_initial: float = 0.01,
-            lr_end_factor: float = 0.01, weight_decay: float = 1e-10):
+            clip_gradient: bool = True, clip_value_grad: float = 0.5, loss_clip: float = 1e3,
+            stop_threshold: int = 3000, lr_initial: float = 0.001, lr_end_factor: float = 0.01):
         """ Fit a nonlinear model to estimate a dynamical systems.
 
         Args:
@@ -79,55 +84,19 @@ class NL_DS(PlanningPolicyInterface):
 
         trajectory_test = torch.from_numpy(trajectory_test.astype(np.float32)).to(self.__device)
         velocity_test = torch.from_numpy(velocity_test.astype(np.float32)).to(self.__device)
+
         trajectory_test.requires_grad = True
         velocity_test.requires_grad = True
 
-
-        # Warm training
-        optimizer = optim.AdamW(self.__nn_module.parameters(), lr=lr_initial,
-                               weight_decay=weight_decay)
-        criterion = nn.SmoothL1Loss()
-
-        start_time = time.time()
-        logger.info('Starting the training sequence')
-
-
-        # Warm start training of the model
-        if self.__fhat is not None:
-            self.__fhat.train()
-
-            # training epochs
-            for epoch in (par := tqdm(range(50))):
-                # iterate over minibatches
-                train_losses = []
-
-                for trajs_t, vels_t in self.__dataset:
-                    # forward pass
-                    y_pred = self.__fhat(trajs_t)
-
-                    # compute loss
-                    loss = criterion(y_pred, vels_t)
-                    train_losses.append(loss.item())
-
-                    # backward pass
-                    optimizer.zero_grad()
-                    loss.backward()
-
-                    # update parameters
-                    optimizer.step()
-
-                train_loss = np.mean(train_losses)
-
-                # tracking the learning process
-                if show_stats and epoch % stat_freq == 0:
-                    par.set_description(f'WTrain > {(train_loss):.4f} | WTest > {mse(self.__nn_module(trajectory_test), velocity_test) if trajectory_test is not None else 0:.4f}')
-
-
+        # optimizer and scheduler
+        optimizer = optim.Adam(self.__nn_module.parameters(), lr=lr_initial)
         scheduler = optim.lr_scheduler.LinearLR(optimizer, start_factor=1.0,
-                            end_factor=lr_end_factor, total_iters=n_epochs // 2)
+                            end_factor=lr_end_factor, total_iters=n_epochs)
+        criterion = nn.MSELoss()
 
+        # start time
+        logger.info('Starting the policy training sequence')
         start_time = time.time()
-        logger.info('Starting the training sequence')
 
         best_train_loss = np.inf
         best_train_epoch = 0
@@ -144,6 +113,7 @@ class NL_DS(PlanningPolicyInterface):
 
             for trajs_t, vels_t in self.__dataset:
                 # forward pass
+                optimizer.zero_grad()
                 y_pred = self.__nn_module(trajs_t)
 
                 # compute loss
@@ -156,7 +126,6 @@ class NL_DS(PlanningPolicyInterface):
                     continue
 
                 # backward pass
-                optimizer.zero_grad()
                 loss.backward()
 
                 # clip gradient based on norm
@@ -173,7 +142,7 @@ class NL_DS(PlanningPolicyInterface):
             train_loss = np.mean(train_losses)
 
             # save the best model
-            if best_train_loss - train_loss > 1e-4:
+            if best_train_loss - train_loss > 1e-6:
                 best_train_epoch = epoch
                 best_train_loss = train_loss
                 best_model = copy.deepcopy(self.__nn_module)
@@ -182,7 +151,7 @@ class NL_DS(PlanningPolicyInterface):
 
             # tracking the learning process
             if show_stats and epoch % stat_freq == 0:
-                par.set_description(f'Train > {(train_loss):.4f} | Test > {mse(self.__nn_module(trajectory_test), velocity_test) if trajectory_test is not None else 0:.4f} | Best > ({best_train_loss:.4f}, {best_train_epoch}) | LR > {scheduler.get_last_lr()[0]:.5f}')
+                par.set_description(f'Train > {(train_loss):.6f} | Test > {mse(self.__nn_module(trajectory_test), velocity_test) if trajectory_test is not None else 0:.6f} | Best > ({best_train_loss:.6f}, {best_train_epoch}) | LR > {scheduler.get_last_lr()[0]:.5f}')
 
             # keep track of stalled progress
             if epoch - best_train_epoch >= stop_threshold:
@@ -191,14 +160,14 @@ class NL_DS(PlanningPolicyInterface):
 
             # react to nan loss values
             if train_loss == torch.nan or train_loss == torch.inf:
-                logger.info(f'Nan/Inf loss function acquired, reinitializing')
+                logger.info(f'Nan/Inf loss function acquired, reinitializing...')
                 self._initialize_network()
 
         total_time = time.time() - start_time
         logger.info(f'Training concluded in {total_time:.4f} seconds')
 
-        self.__nn_module = copy.deepcopy(best_model)
-        self.__lpf = copy.deepcopy(best_lpf)
+        self.__nn_module = best_model
+        self.__lpf = best_lpf
 
     def predict(self, trajectory: np.ndarray):
         """ Predict estimated velocities from learning NN_DS.
@@ -233,7 +202,7 @@ class NL_DS(PlanningPolicyInterface):
         x.requires_grad = True
 
         x = x.to(device=self.__device)
-        x = x.reshape(1, 2)
+        x = x.reshape(1, self.__data_dim)
         res = self.__lpf.forward(x)
         return res.detach().cpu().numpy()
 
@@ -270,8 +239,8 @@ class NL_DS(PlanningPolicyInterface):
         elif self.__network_type == 'sdsef':
             self.__nn_module = init_sdsef_model(input_dim=self.__data_dim, device=self.__device)
         elif self.__network_type == 'snds':
-            self.__nn_module, self.__fhat, self.__lpf  = joint_lpf_ds_model(device=self.__device,
-                                                                            lsd=self.__data_dim)
+            self.__nn_module, self.__lpf  = joint_lpf_ds_model(device=self.__device, lsd=self.__data_dim, alpha=self.__alpha, eps=self.__epsilon,
+                                                               relaxed=self.__relaxed)
         else:
             raise NotImplementedError(f'Network type {self.__network_type} is not available!')
 
@@ -289,11 +258,11 @@ class NL_DS(PlanningPolicyInterface):
             x = torch.from_numpy(trajs.astype(np.float32))
             y = torch.from_numpy(vels.astype(np.float32))
 
-            x.requires_grad = True
-            y.requires_grad = True
-
             x = x.to(device=self.__device)
             y = y.to(device=self.__device)
+
+            x.requires_grad = True
+            y.requires_grad = True
 
             # generate a dataloader
             dataset = TensorDataset(x, y)

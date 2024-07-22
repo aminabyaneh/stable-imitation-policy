@@ -488,7 +488,10 @@ def plot_contours(lpf, trajectory, step_size: float = 0.001, save_dir: str = "",
 
     data = np.concatenate([X.reshape(-1,1), Y.reshape(-1,1)], axis=1)
     Z = np.apply_along_axis(lpf, 1, data).reshape(100, 100)
-    print(f'LPF bounds: [{np.min(Z):.5f}, {np.max(Z):.5f}]')
+
+    if np.min(Z) == 0 and np.max(Z) == 0:
+        print(f'Aborting LPF plot since the function is not trained properly! In most cases this means additional training is required. Consider retraining with more epochs.')
+        return
 
     Z /= np.linalg.norm(Z)
     step = np.abs(step_size)
