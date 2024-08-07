@@ -45,6 +45,14 @@ conda env create -f environment.yaml
 
 Before running the above, make sure you have Conda installed, or install it from [Anaconda Website](https://conda.io/projects/conda/en/latest/user-guide/install/linux.html).
 
+## Known Issues
+* In some cases the SNDS training loss doesn't reduce when training the model, but the problem can be resolved by running the code again. We are trying to solve this problem at the moment. This issue has not yet been observed in **GPU training**.
+* Consider changing the learning rate based on the number of samples and complexity of the motion to overcome this issue. 
+* Note that in proper training, the loss should hover around 5e-3 and lower, otherwise the Lyapunov function might not be trained properly. Lyapunov plot will automatically be aborted in these scenarios with a message. Always allow sufficient epochs, 3-5k at least, to achieve this result, and also for learning rate scheduler to complete its task.
+  ```cmd
+  Train > 0.007863 | Test > 0.005087 | Best > (0.007863, 24) | LR > 0.00099
+  ```
+  
 ## Experimenting with SNDS
 
 The [exp](exp/) folder contains most of the experiments and baselines comparisons. To prepare for running experiments, you need to navigate into the folder and use python to launch the file.
@@ -135,12 +143,6 @@ optional arguments:
 
 The file [batch_learning.py](exp/batch_baselining.py) enables multiple experiments for each of the baselines and PLYDS with just setting the argument.
 
-## Known Issues
-* In some cases the training loss doesn't reduce when training the model, but the problem can be resolved by running the code again. We are trying to solve this problem at the moment. This issue has not been observed in **GPU training** yet. 
-* Note that in proper training, the loss should hover around 5e-3 and lower, otherwise the Lyapunov function might not be trained properly. Always allow sufficient epochs, 3-5k at least, to achieve this result, and also for learning rate scheduler to complete its task.
-  ```cmd
-  Train > 0.007863 | Test > 0.005087 | Best > (0.007863, 24) | LR > 0.00099
-  ```
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting **pull requests** to us.
