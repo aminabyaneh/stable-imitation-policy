@@ -121,8 +121,10 @@ class NL_DS(PlanningPolicyInterface):
                 train_losses.append(loss.item())
 
                 if loss > loss_clip:
-                    self._initialize_network()
                     logger.warn('Loss value is too large, reinitializing')
+
+                    self._initialize_network()
+                    optimizer = optim.Adam(self.__nn_module.parameters(), lr=lr_initial)
                     continue
 
                 # backward pass
@@ -155,7 +157,7 @@ class NL_DS(PlanningPolicyInterface):
 
             # keep track of stalled progress
             if epoch - best_train_epoch >= stop_threshold:
-                logger.info(f'No progress for a while, quitting the training loop')
+                logger.info(f'No progress for a while, quitting the training loop.')
                 break
 
             # react to nan loss values
