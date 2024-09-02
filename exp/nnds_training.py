@@ -100,7 +100,7 @@ if __name__ == '__main__':
     parser.add_argument('-is', '--ic-std', type=float, default=0.1, help='Add initial condition noise to test time rollouts.')
 
     # SNDS params
-    parser.add_argument('-rl', '--relaxed', type=bool, default=False, help='Relax asymptotic stability for SNDS.')
+    parser.add_argument('-rl', '--relaxed', action='store_true', default=False, help='Relax asymptotic stability for SNDS.')
     parser.add_argument('-al', '--alpha', type=float, default=0.01, help='Exponential stability constant for SNDS as explained in the paper.')
     parser.add_argument('-ep', '--eps', type=float, default=0.01, help='Quadratic Lyapunov addition constant for SNDS as explained in the paper.')
 
