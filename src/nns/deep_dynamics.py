@@ -117,22 +117,26 @@ class Dynamics(nn.Module):
         self.V = V
         self.alpha = alpha
         self.relaxed = relaxed
+        self.activation = F.relu # ReHU() # F.softplus
 
     def forward(self, x):
         fx = self.fhat(x)
         Vx = self.V(x)
 
+        # regularizer to avoid fluctuations
+        regularizer = 0
+
         if self.relaxed:
             gV = torch.autograd.grad([a for a in Vx], [x], create_graph=True)[0]
             rv = fx - \
-                gV * (F.relu((gV * fx).sum(dim=1)) / (gV ** 2).sum(dim=1))[:,None]
+                gV * (self.activation((gV * fx).sum(dim=1)) / ((gV ** 2).sum(dim=1) + regularizer))[:,None]
             rv = torch.nan_to_num(rv)
 
         else:
             gV = torch.autograd.grad([a for a in Vx], [x], create_graph=True)[0]
             rv = fx - \
-                    gV * (F.relu((gV * fx).sum(dim=1) + \
-                            self.alpha * Vx[:,0]) / (gV ** 2).sum(dim=1))[:,None]
+                 gV * (self.activation((gV * fx).sum(dim=1) + \
+                         self.alpha * Vx[:,0]) / ((gV ** 2).sum(dim=1) + regularizer))[:,None]
             rv = torch.nan_to_num(rv)
         return rv
 
@@ -167,6 +171,8 @@ def joint_lpf_ds_model(device, lsd=2, fhat_layers=[2, 256, 256, 256, 2], lpf_lay
 class SRVDMetric(nn.Module):
     def __init__(self):
         """SRVD metric helps gauge curve similarity more effectively than a simple MSE loss.
+
+        # TODO: Note fully implemented in this repo
         """
         super(SRVDMetric, self).__init__()
 
@@ -179,7 +185,7 @@ class SRVDMetric(nn.Module):
 
 class ReHU(nn.Module):
     """Rectified Huber unit"""
-    def __init__(self, d):
+    def __init__(self, d=1):
         super().__init__()
         self.a = 1/d
         self.b = -d/2

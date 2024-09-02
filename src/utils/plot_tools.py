@@ -32,7 +32,7 @@ class PlotConfigs:
 
 
 def plot_trajectory(trajectory: np.ndarray, title: str = "", file_name: str = "",
-                    save_dir: str = "", show_legends: bool = True, n_samples: int = 1000):
+                    save_dir: str = ".", show_legends: bool = False, n_samples: int = 1000):
     """ Plot a given trajectory based on dimension.
 
     Args:
@@ -77,12 +77,9 @@ def plot_trajectory(trajectory: np.ndarray, title: str = "", file_name: str = ""
     if title is not None:
         plt.title(title, fontsize=PlotConfigs.TITLE_SIZE)
 
-    if save_dir != "":
-        name = file_name if file_name != "" else 'plot'
-        os.makedirs(save_dir, exist_ok=True)
-        plt.savefig(os.path.join(save_dir, name), dpi=PlotConfigs.FIGURE_DPI, bbox_inches='tight')
-    else:
-        plt.show()
+    name = file_name if file_name != "" else 'plot'
+    os.makedirs(save_dir, exist_ok=True)
+    plt.savefig(os.path.join(save_dir, name), dpi=PlotConfigs.FIGURE_DPI, bbox_inches='tight')
 
 
 def plot_gmm(trajectory: np.ndarray, means: List, covariances: List):
@@ -143,7 +140,7 @@ def plot_ds_stream(ds, trajectory: np.ndarray, title: str = None,
                    policy_density: int = 100, traj_density: int = 0.4,
                    file_name: str = "", save_dir: str = "", n_samples: int = 1000,
                    other_starts: List[np.ndarray] = None, n_reprod_trajs: int = 3,
-                   show_legends: bool = True, show_rollouts: bool = True,
+                   show_legends: bool = False, show_rollouts: bool = True,
                    show_arrows: bool = False, save_rollouts: bool = False):
     """ Plot a policy for given a DS model and trajectories.
 
@@ -196,9 +193,10 @@ def plot_ds_stream(ds, trajectory: np.ndarray, title: str = None,
     X, Y = np.meshgrid(x, y)
 
     data = np.concatenate([X.reshape(-1,1), Y.reshape(-1,1)], axis=1)
-    Z = np.apply_along_axis(lambda x: ds.predict(np.array([x])), 1, data)
+    Z = ds.predict(data)
+    Z = Z.reshape(policy_density, policy_density, 2)
     U, V = Z[:,:,0].reshape(policy_density, policy_density), \
-        Z[:,:,1].reshape(policy_density, policy_density)
+           Z[:,:,1].reshape(policy_density, policy_density)
 
     # create streamplot
     plt.streamplot(X, Y, U, V, density=stream_density, color=PlotConfigs.POLICY_COLOR, linewidth=1)
@@ -230,13 +228,13 @@ def plot_ds_stream(ds, trajectory: np.ndarray, title: str = None,
         starts_idx = np.random.choice(a=len(start_points), size=n_reprod_trajs, replace=False)
         starts = start_points[starts_idx]
         starts = starts + other_starts if other_starts is not None else starts
-        limit = np.linalg.norm([(x_max - x_min), (y_max - y_min)]) / 10
+        limit = np.linalg.norm([(x_max - x_min), (y_max - y_min)]) / 100
         for idx, start in enumerate(starts):
             simulated_traj: List[np.ndarray] = []
             simulated_traj.append(np.array([start]).reshape(1, 2))
 
             distance_to_target = np.linalg.norm(simulated_traj[-1] - goal_point)
-            while  distance_to_target > limit  and len(simulated_traj) < 2e3:
+            while  distance_to_target > limit  and len(simulated_traj) < 5e3:
                 vel = ds.predict(simulated_traj[-1])
                 simulated_traj.append(simulated_traj[-1] + dt * vel)
                 distance_to_target = np.linalg.norm(simulated_traj[-1] - goal_point)
@@ -274,7 +272,7 @@ def plot_ds_stream(ds, trajectory: np.ndarray, title: str = None,
     # add legend with the custom handle
     if show_legends:
         plt.legend(fontsize=PlotConfigs.LEGEND_SIZE, loc='upper right',
-            handles=[green_arrows, red_arrows, blue_dots, start_handle, target_handle])
+                   handles=[green_arrows, red_arrows, blue_dots, start_handle, target_handle])
 
     if title is not None:
         plt.title(title, fontsize=PlotConfigs.TITLE_SIZE)

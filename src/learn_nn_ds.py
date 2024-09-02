@@ -65,7 +65,7 @@ class NL_DS(PlanningPolicyInterface):
         self.__dataset: DataLoader = None
 
     def fit(self, trajectory: np.ndarray, velocity: np.ndarray, n_epochs: int = 200,
-            batch_size: int = 128, show_stats: bool = True, stat_freq: int = 2,
+            batch_size: int = 128, show_stats: bool = True, stat_freq: int = 20,
             trajectory_test: np.ndarray = None, velocity_test: np.ndarray = None,
             clip_gradient: bool = True, clip_value_grad: float = 0.5, loss_clip: float = 1e3,
             stop_threshold: int = 3000, lr_initial: float = 0.001, lr_end_factor: float = 0.01):
@@ -153,7 +153,7 @@ class NL_DS(PlanningPolicyInterface):
 
             # tracking the learning process
             if show_stats and epoch % stat_freq == 0:
-                par.set_description(f'Train > {(train_loss):.6f} | Test > {mse(self.__nn_module(trajectory_test), velocity_test) if trajectory_test is not None else 0:.6f} | Best > ({best_train_loss:.6f}, {best_train_epoch}) | LR > {scheduler.get_last_lr()[0]:.5f}')
+                print(f'# {epoch}: Train > {(train_loss):.6f} | Test > {mse(self.__nn_module(trajectory_test), velocity_test) if trajectory_test is not None else 0:.6f} | Best > ({best_train_loss:.6f}, {best_train_epoch}) | LR > {scheduler.get_last_lr()[0]:.5f}')
 
             # keep track of stalled progress
             if epoch - best_train_epoch >= stop_threshold:
@@ -215,9 +215,9 @@ class NL_DS(PlanningPolicyInterface):
             model_name (str): Name of the model.
             dir (str, optional): Load directory. Defaults to '../res'.
         """
-
-        self.__nn_module = torch.load(os.path.join(dir, f'{self.__network_type}',
-                                                   f'{model_name}.pt'))
+        dir = os.path.join(dir, f'{self.__network_type}', f'{model_name}.pt')
+        print(f'Loading from {dir}')
+        self.__nn_module.load_state_dict(torch.load(dir))
 
 
     def save(self, model_name: str, dir: str = '../res'):
@@ -229,9 +229,8 @@ class NL_DS(PlanningPolicyInterface):
         """
 
         os.makedirs(os.path.join(dir, f'{self.__network_type}'), exist_ok=True)
-        torch.save(self.__nn_module, os.path.join(dir, f'{self.__network_type}',
+        torch.save(self.__nn_module.state_dict(), os.path.join(dir, f'{self.__network_type}',
                                                   f'{model_name}.pt'))
-
 
     def _initialize_network(self):
         if self.__network_type == 'nn':

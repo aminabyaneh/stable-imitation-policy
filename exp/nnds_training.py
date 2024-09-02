@@ -5,22 +5,22 @@ import os, sys
 import argparse
 import numpy as np
 
+from datetime import datetime
 from sklearn.model_selection import train_test_split
 
 sys.path.append(os.path.join(os.pardir, 'src'))
 
 from learn_nn_ds import NL_DS
-from utils.utils import time_stamp
-from utils.log_config import logger
-from utils.data_loader import load_snake_data
+
+from utils.plot_trajectories import plot_trajectories
 from utils.plot_tools import plot_ds_stream, plot_trajectory, plot_contours
-from learn_gmm_ds import prepare_expert_data
+from utils.data_loader import load_pylasa_data
 
 
 def train_neural_policy(network: str, mode: str, motion_shape: str, n_dems: int,
                         n_epochs: int, plot: bool, model_name: str, test_size: float,
                         save: bool, save_dir: str, gpu: bool, alpha: float, eps: float,
-                        relaxed: bool):
+                        relaxed: bool, ic_std: float):
     """ Training sequence for a stable/unstable neural policy to estimate a
     nonlinear dynamical system.
 
@@ -40,36 +40,31 @@ def train_neural_policy(network: str, mode: str, motion_shape: str, n_dems: int,
         relaxed (bool): Relax the exponential condition for SNDS to global asymptotic stability.
     """
 
-    ''' Load an augmented dataset '''
+    ''' Load the dataset '''
     model_name = model_name.lower()
-    name = f'{model_name}-{network}-{motion_shape.lower()}-{time_stamp()}'
+    name = f'{model_name}-{network}-{motion_shape.lower()}-{datetime.now().strftime("%d-%m-%H-%M")}'
 
-    aug_trajs, aug_vels = prepare_expert_data(motion_shape, n_dems,
-                                              dir=os.path.join(os.pardir, 'res', 'expert_models'))
-
-    trajs_train, trajs_test, vels_train, vels_test = train_test_split(aug_trajs, aug_vels,
-                                                                      test_size=test_size,
-                                                                      random_state=np.random.randint(10))
-    logger.info(f'Shape of the train data is {trajs_train.shape} and test is {trajs_test.shape}.')
-
-    plot_trajectory(aug_trajs)
+    states, state_der = load_pylasa_data(motion_shape=motion_shape, normalized=True)
+    split = train_test_split(states, state_der, test_size=test_size, random_state=np.random.randint(10))
+    states_train, states_test, state_der_train, state_der_test = split
+    print(f'Shape of the train data is {states_train.shape} and test is {states_test.shape}.')
 
     ''' Train and save a model'''
-    nl_ds = NL_DS(network=network, data_dim=aug_trajs.shape[1], gpu=gpu, alpha=alpha, eps=eps, relaxed=relaxed)
+    nl_ds = NL_DS(network=network, data_dim=states.shape[1], gpu=gpu, alpha=alpha, eps=eps, relaxed=relaxed)
 
     if mode == 'train':
-        nl_ds.fit(trajs_train, vels_train, n_epochs=n_epochs, trajectory_test=trajs_test, velocity_test=vels_test)
+        nl_ds.fit(states_train, state_der_train, n_epochs=n_epochs, trajectory_test=states_test, velocity_test=state_der_test)
 
     if mode == 'test':
         nl_ds.load(model_name, dir=save_dir)
 
     ''' Plot the DS '''
     if plot:
-        plot_ds_stream(nl_ds, aug_trajs[len(aug_trajs) - 7000:], save_dir=save_dir, file_name=name,
-                       show_legends=True, space_stretch=0.5)
+        plot_trajectories(nl_ds, states, save_dir=save_dir, file_name=name)
+        plot_ds_stream(nl_ds, states, save_dir=save_dir, file_name=f'{name}_stream', space_stretch=ic_std)
 
         if nl_ds.lpf() is not None:
-            plot_contours(nl_ds.lpf, aug_trajs, save_dir=save_dir, file_name=f'{name}-lpf')
+            plot_contours(nl_ds.lpf, states, save_dir=save_dir, file_name=f'{name}-lpf')
 
     ''' Save the DS '''
     if save:
@@ -101,10 +96,11 @@ if __name__ == '__main__':
                         help='Optional destination for save/load.')
     parser.add_argument('-mn', '--model-name', type=str, default='test', help='Optional model name for saving.')
 
-    parser.add_argument('-gp', '--gpu', type=bool, default=True, help='Enable or disable GPU support.')
+    parser.add_argument('-gp', '--gpu', action='store_true', default=False, help='Enable or disable GPU support.')
+    parser.add_argument('-is', '--ic-std', type=float, default=0.1, help='Add initial condition noise to test time rollouts.')
 
     # SNDS params
-    parser.add_argument('-rl', '--relaxed', type=bool, default=True, help='Relax asymptotic stability for SNDS.')
+    parser.add_argument('-rl', '--relaxed', type=bool, default=False, help='Relax asymptotic stability for SNDS.')
     parser.add_argument('-al', '--alpha', type=float, default=0.01, help='Exponential stability constant for SNDS as explained in the paper.')
     parser.add_argument('-ep', '--eps', type=float, default=0.01, help='Quadratic Lyapunov addition constant for SNDS as explained in the paper.')
 
@@ -114,4 +110,5 @@ if __name__ == '__main__':
                         args.num_demonstrations, args.num_epochs, args.show_plots,
                         test_size=args.test_size, model_name=args.model_name,
                         save=args.save_model, save_dir=args.save_dir, gpu=args.gpu,
-                        relaxed=args.relaxed, eps=args.eps, alpha=args.alpha)
+                        relaxed=args.relaxed, eps=args.eps, alpha=args.alpha,
+                        ic_std=args.ic_std)
