@@ -1,0 +1,25 @@
+# Complete tested Python 3.10 dependency set.
+cffi==2.1.1
+clarabel==0.11.1
+cloudpickle==3.1.2
+contourpy==1.3.2
+cvxpy==1.7.5
+cycler==0.12.1
+fonttools==4.65.0
+jinja2==3.1.6
+joblib==1.6.0
+kiwisolver==1.5.1
+markupsafe==3.0.4
+matplotlib==3.7.1
+numpy==1.26.4
+osqp==1.1.3
+packaging==26.3
+pillow==12.3.0
+pycparser==3.0
+pylasadataset==0.1.1
+pyparsing==3.3.3
+python-dateutil==2.9.0.post0
+scipy==1.15.3
+scs==3.3.1
+setuptools==84.0.0
+six==1.17.0

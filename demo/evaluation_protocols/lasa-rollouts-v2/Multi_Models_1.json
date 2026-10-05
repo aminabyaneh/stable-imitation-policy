@@ -1,0 +1,760 @@
+{
+  "version": "lasa-rollouts-v2",
+  "motion": "Multi_Models_1",
+  "seed": 743710415,
+  "data_fingerprint": "56b855cc483e3968ae4e817712195cf1b71825edbab935d305631e812fea9b1c",
+  "starts": [
+    {
+      "id": "demo_start-00",
+      "group": "demo_start",
+      "position": [
+        0.9999382773199424,
+        -0.011110425303554624
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "demo_start-01",
+      "group": "demo_start",
+      "position": [
+        0.99962387796782,
+        0.02672791117561007
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "demo_start-02",
+      "group": "demo_start",
+      "position": [
+        0.9999998553504124,
+        0.0
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "demo_start-03",
+      "group": "demo_start",
+      "position": [
+        -0.9932869203406615,
+        -0.06256925482460873
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "demo_start-04",
+      "group": "demo_start",
+      "position": [
+        -0.9982994088773041,
+        -0.05829485599283539
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "demo_start-05",
+      "group": "demo_start",
+      "position": [
+        0.27172907022281045,
+        0.9623737903724555
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "demo_start-06",
+      "group": "demo_start",
+      "position": [
+        -0.15118323329573866,
+        0.9885057561644475
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "near_start-00",
+      "group": "near_start",
+      "position": [
+        1.048951837761567,
+        -0.011110425303554624
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "near_start-01",
+      "group": "near_start",
+      "position": [
+        0.950924716878318,
+        -0.011110425303554619
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "id_ring-00",
+      "group": "id_ring",
+      "position": [
+        1.1224721784240035,
+        -0.011110425303554624
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "id_ring-01",
+      "group": "id_ring",
+      "position": [
+        0.8774043762158813,
+        -0.011110425303554609
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-00",
+      "group": "ood_ring",
+      "position": [
+        1.1531056537000188,
+        -0.011110425303554624
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-01",
+      "group": "ood_ring",
+      "position": [
+        0.9999382773199424,
+        0.14205695107652175
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-02",
+      "group": "ood_ring",
+      "position": [
+        0.8467709009398661,
+        -0.011110425303554605
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-03",
+      "group": "ood_ring",
+      "position": [
+        0.9999382773199424,
+        -0.16427780168363101
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "near_start-02",
+      "group": "near_start",
+      "position": [
+        1.0301833330559595,
+        0.06504825579672169
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "near_start-03",
+      "group": "near_start",
+      "position": [
+        0.9690644228796805,
+        -0.011592433445501541
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "id_ring-02",
+      "group": "id_ring",
+      "position": [
+        1.0760225156881686,
+        0.12252877272838912
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "id_ring-03",
+      "group": "id_ring",
+      "position": [
+        0.9232252402474713,
+        -0.06907295037716896
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-04",
+      "group": "ood_ring",
+      "position": [
+        1.0951221751182558,
+        0.14647898811658389
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-05",
+      "group": "ood_ring",
+      "position": [
+        0.8798728010268463,
+        0.12222620832604597
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-06",
+      "group": "ood_ring",
+      "position": [
+        0.9041255808173841,
+        -0.09302316576536372
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-07",
+      "group": "ood_ring",
+      "position": [
+        1.119374954908794,
+        -0.06877038597482583
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "near_start-04",
+      "group": "near_start",
+      "position": [
+        0.9890933121044179,
+        0.04778468814995054
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "near_start-05",
+      "group": "near_start",
+      "position": [
+        1.0109063985964069,
+        -0.04778468814995054
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "id_ring-04",
+      "group": "id_ring",
+      "position": [
+        0.972733497235426,
+        0.11946172037487635
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "id_ring-05",
+      "group": "id_ring",
+      "position": [
+        1.0272662134653987,
+        -0.11946172037487635
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-08",
+      "group": "ood_ring",
+      "position": [
+        0.9659169077066795,
+        0.14932715046859543
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-09",
+      "group": "ood_ring",
+      "position": [
+        0.8506727048818169,
+        -0.03408294764373291
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-10",
+      "group": "ood_ring",
+      "position": [
+        1.0340828029941453,
+        -0.14932715046859543
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-11",
+      "group": "ood_ring",
+      "position": [
+        1.1493270058190077,
+        0.03408294764373289
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "near_start-06",
+      "group": "near_start",
+      "position": [
+        -1.0374466124036186,
+        -0.04130306795273228
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "near_start-07",
+      "group": "near_start",
+      "position": [
+        -0.9491272282777043,
+        -0.08383544169648519
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "id_ring-06",
+      "group": "id_ring",
+      "position": [
+        -1.1036861504980544,
+        -0.009403787644917602
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "id_ring-07",
+      "group": "id_ring",
+      "position": [
+        -0.8828876901832685,
+        -0.11573472200429988
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-12",
+      "group": "ood_ring",
+      "position": [
+        -1.1312859580374026,
+        0.003887579150005177
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-13",
+      "group": "ood_ring",
+      "position": [
+        -1.0597437543152755,
+        -0.20056829252134986
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-14",
+      "group": "ood_ring",
+      "position": [
+        -0.8552878826439203,
+        -0.12902608879922267
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-15",
+      "group": "ood_ring",
+      "position": [
+        -0.9268300863660475,
+        0.0754297828721324
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "near_start-08",
+      "group": "near_start",
+      "position": [
+        -1.0424591009402613,
+        -0.07956104286471183
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "near_start-09",
+      "group": "near_start",
+      "position": [
+        -0.9541397168143468,
+        -0.03702866912095895
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "id_ring-08",
+      "group": "id_ring",
+      "position": [
+        -1.108698639034697,
+        -0.1114603231725265
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "id_ring-09",
+      "group": "id_ring",
+      "position": [
+        -0.8879001787199111,
+        -0.0051293888131443005
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-16",
+      "group": "ood_ring",
+      "position": [
+        -1.1362984465740453,
+        -0.12475168996744927
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-17",
+      "group": "ood_ring",
+      "position": [
+        -0.9318425749026902,
+        -0.19629389368957656
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-18",
+      "group": "ood_ring",
+      "position": [
+        -0.8603003711805629,
+        0.008161977981778465
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-19",
+      "group": "ood_ring",
+      "position": [
+        -1.064756242851918,
+        0.07970418170390577
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "near_start-10",
+      "group": "near_start",
+      "position": [
+        0.2608225269768159,
+        0.914589102222505
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "near_start-11",
+      "group": "near_start",
+      "position": [
+        0.282635613468805,
+        1.010158478522406
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "id_ring-10",
+      "group": "id_ring",
+      "position": [
+        0.24446271210782408,
+        0.8429120699975792
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "id_ring-11",
+      "group": "id_ring",
+      "position": [
+        0.29899542833779685,
+        1.0818355107473319
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-20",
+      "group": "ood_ring",
+      "position": [
+        0.2376461225790775,
+        0.8130466399038601
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-21",
+      "group": "ood_ring",
+      "position": [
+        0.42105622069140586,
+        0.9282908427287225
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-22",
+      "group": "ood_ring",
+      "position": [
+        0.30581201786654344,
+        1.111700940841051
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-23",
+      "group": "ood_ring",
+      "position": [
+        0.12240191975421505,
+        0.9964567380161885
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "near_start-12",
+      "group": "near_start",
+      "position": [
+        -0.12062377820759917,
+        0.9501854115433358
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "near_start-13",
+      "group": "near_start",
+      "position": [
+        -0.18174268838387814,
+        1.026826100785559
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "id_ring-12",
+      "group": "id_ring",
+      "position": [
+        -0.07478459557538997,
+        0.8927048946116685
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "id_ring-13",
+      "group": "id_ring",
+      "position": [
+        -0.22758187101608734,
+        1.0843066177172265
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "ood_ring-24",
+      "group": "ood_ring",
+      "position": [
+        -0.0556849361453028,
+        0.8687546792234736
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "ood_ring-25",
+      "group": "ood_ring",
+      "position": [
+        -0.03143215635476483,
+        1.0840040533148834
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "ood_ring-26",
+      "group": "ood_ring",
+      "position": [
+        -0.2466815304461745,
+        1.1082568331054212
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "ood_ring-27",
+      "group": "ood_ring",
+      "position": [
+        -0.2709343102367125,
+        0.8930074590140116
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "along_trajectory-00",
+      "group": "along_trajectory",
+      "position": [
+        0.47275488124750825,
+        -0.0954053497047814
+      ],
+      "reference_demo": 0,
+      "sample_index": 511
+    },
+    {
+      "id": "along_trajectory-01",
+      "group": "along_trajectory",
+      "position": [
+        0.048808556694227914,
+        0.14037819178180905
+      ],
+      "reference_demo": 5,
+      "sample_index": 762
+    },
+    {
+      "id": "along_trajectory-02",
+      "group": "along_trajectory",
+      "position": [
+        0.3523512106258065,
+        -0.16106858596949916
+      ],
+      "reference_demo": 0,
+      "sample_index": 620
+    },
+    {
+      "id": "along_trajectory-03",
+      "group": "along_trajectory",
+      "position": [
+        0.14944217675256705,
+        -0.18740223929622504
+      ],
+      "reference_demo": 2,
+      "sample_index": 717
+    },
+    {
+      "id": "along_trajectory-04",
+      "group": "along_trajectory",
+      "position": [
+        -0.03601682073086586,
+        0.2497681634592689
+      ],
+      "reference_demo": 6,
+      "sample_index": 565
+    },
+    {
+      "id": "along_trajectory-05",
+      "group": "along_trajectory",
+      "position": [
+        -0.6151734115007341,
+        -0.36407617458602054
+      ],
+      "reference_demo": 4,
+      "sample_index": 483
+    },
+    {
+      "id": "along_trajectory-06",
+      "group": "along_trajectory",
+      "position": [
+        -0.6420132439933073,
+        -0.3758695018828926
+      ],
+      "reference_demo": 4,
+      "sample_index": 462
+    },
+    {
+      "id": "along_trajectory-07",
+      "group": "along_trajectory",
+      "position": [
+        -0.14181244106245836,
+        0.9515884670974594
+      ],
+      "reference_demo": 6,
+      "sample_index": 103
+    },
+    {
+      "id": "along_trajectory-08",
+      "group": "along_trajectory",
+      "position": [
+        0.5050450913092978,
+        -0.048631800253457265
+      ],
+      "reference_demo": 0,
+      "sample_index": 468
+    },
+    {
+      "id": "along_trajectory-09",
+      "group": "along_trajectory",
+      "position": [
+        -0.5688874886517084,
+        -0.42183041847856845
+      ],
+      "reference_demo": 3,
+      "sample_index": 512
+    },
+    {
+      "id": "along_trajectory-10",
+      "group": "along_trajectory",
+      "position": [
+        0.3772507103106856,
+        -0.15371662793979896
+      ],
+      "reference_demo": 0,
+      "sample_index": 602
+    },
+    {
+      "id": "along_trajectory-11",
+      "group": "along_trajectory",
+      "position": [
+        0.028850680648385554,
+        -0.11270903247826672
+      ],
+      "reference_demo": 1,
+      "sample_index": 833
+    }
+  ],
+  "centers": [
+    [
+      0.9999382773199424,
+      -0.011110425303554624
+    ],
+    [
+      0.99962387796782,
+      0.02672791117561007
+    ],
+    [
+      0.9999998553504124,
+      0.0
+    ],
+    [
+      -0.9932869203406615,
+      -0.06256925482460873
+    ],
+    [
+      -0.9982994088773041,
+      -0.05829485599283539
+    ],
+    [
+      0.27172907022281045,
+      0.9623737903724555
+    ],
+    [
+      -0.15118323329573866,
+      0.9885057561644475
+    ]
+  ],
+  "motion_extent": 2.450678022081222,
+  "near_start_radius": 0.04901356044162444,
+  "id_ring_radius": 0.12253390110406111,
+  "ood_ring_radius": 0.15316737638007638,
+  "id_radius_fractions": [
+    0.02,
+    0.05
+  ],
+  "id_groups": [
+    "demo_start",
+    "near_start",
+    "id_ring"
+  ],
+  "ood_radius_multiplier": 1.25,
+  "plot_bounds": [
+    [
+      -1.2965567335932298,
+      -0.5904219139383688
+    ],
+    [
+      1.3133639407192033,
+      1.2719592278602354
+    ]
+  ],
+  "integrator": {
+    "method": "RK45",
+    "horizon": 60.0,
+    "max_step": 0.25,
+    "rtol": 1e-06,
+    "atol": 1e-08,
+    "target_radius": 0.01,
+    "escape_radius": 8.0,
+    "max_rhs_evaluations": 20000
+  },
+  "interpretation": "ID: exact demonstration starts and offsets of 2% and 5% of the normalized motion bounding-box diagonal, around every demonstration start. OOD: radius 6.25%, 25% larger than the outer ID radius. Along-trajectory starts are a separate group. These geometric labels are not a statistical support guarantee."
+}

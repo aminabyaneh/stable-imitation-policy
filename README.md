@@ -18,6 +18,22 @@ Conference on Robot Learning, 2023.
 
 This section provides instructions on reproducibility and basic functionalities of the repository.
 
+### Interactive PLYDS demo
+
+The [PLYDS motion notebook](demo/README.md) provides a local browser interface
+for training LASA motions with SCS. Choose policy and Lyapunov degrees and the
+number of demonstrations, then inspect vector fields, a blue Lyapunov heatmap,
+ID/OOD rollouts, fitting errors, and elapsed time. Models and results are saved
+locally. No MOSEK license, GPU, or frontend build is required.
+
+See [demo setup and launch instructions](demo/README.md#quick-start) and the
+[comparison with the updated stability theorem](demo/THEOREM_ALIGNMENT.md).
+The demo models the corrected scalar SOS conditions, but its floating-point
+checks do not establish a rigorous global stability certificate. The original
+`src/` and `exp/` implementations remain separate.
+
+![PLYDS motion notebook with blue Lyapunov heatmap](demo/preview.png)
+
 ### Repository structure
 
 To acquire a better understanding of the environment and features, you just need to clone the repository into your local machine. At first glance, the structure of the project appears below.

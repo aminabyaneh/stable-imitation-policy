@@ -1,0 +1,7 @@
+# Tested with Python 3.10.22. Runtime uses SCS only.
+numpy==1.26.4
+scipy==1.15.3
+matplotlib==3.7.1
+cvxpy==1.7.5
+scs==3.3.1
+pylasadataset==0.1.1

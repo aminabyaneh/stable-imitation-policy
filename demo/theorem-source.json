@@ -1,0 +1,10 @@
+{
+  "checked_date": "2026-10-05",
+  "source_repository": "aminabyaneh/phd_thesis",
+  "source_state": "local working tree, including uncommitted theorem revisions",
+  "theorem_label": "theorem:ds_stability_sos",
+  "files": {
+    "past/plyds/methodology.tex": "9782ad4a0b62368de0c1f290902f0cef678211ca6bac72c11d0f57fd8c5d4ee3",
+    "past/plyds/supplements.tex": "1580790d2cd431f3d197deacca03f77654c1a7800613ac99c8a2666cc3b5a028"
+  }
+}

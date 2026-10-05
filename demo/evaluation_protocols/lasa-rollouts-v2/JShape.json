@@ -1,0 +1,760 @@
+{
+  "version": "lasa-rollouts-v2",
+  "motion": "JShape",
+  "seed": 1106723732,
+  "data_fingerprint": "b66b03d91bf6b58fd738c0d837e069fd770527ff5d0a40e39af6e1b5de81bae8",
+  "starts": [
+    {
+      "id": "demo_start-00",
+      "group": "demo_start",
+      "position": [
+        0.6261346992055281,
+        0.7797149084446204
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "demo_start-01",
+      "group": "demo_start",
+      "position": [
+        0.6252172713384713,
+        0.7703569950420454
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "demo_start-02",
+      "group": "demo_start",
+      "position": [
+        0.6507913734559686,
+        0.7592566023652967
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "demo_start-03",
+      "group": "demo_start",
+      "position": [
+        0.6967856842632492,
+        0.7172793808592268
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "demo_start-04",
+      "group": "demo_start",
+      "position": [
+        0.698760712131821,
+        0.708602412302692
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "demo_start-05",
+      "group": "demo_start",
+      "position": [
+        0.728383577368599,
+        0.681085942474534
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "demo_start-06",
+      "group": "demo_start",
+      "position": [
+        0.7176292427417732,
+        0.6793556831288784
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "near_start-00",
+      "group": "near_start",
+      "position": [
+        0.6589226865452491,
+        0.7797149084446204
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "near_start-01",
+      "group": "near_start",
+      "position": [
+        0.5933467118658071,
+        0.7797149084446204
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "id_ring-00",
+      "group": "id_ring",
+      "position": [
+        0.7081046675548306,
+        0.7797149084446204
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "id_ring-01",
+      "group": "id_ring",
+      "position": [
+        0.5441647308562256,
+        0.7797149084446204
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-00",
+      "group": "ood_ring",
+      "position": [
+        0.7285971596421563,
+        0.7797149084446204
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-01",
+      "group": "ood_ring",
+      "position": [
+        0.6261346992055281,
+        0.8821773688812486
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-02",
+      "group": "ood_ring",
+      "position": [
+        0.5236722387688999,
+        0.7797149084446204
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-03",
+      "group": "ood_ring",
+      "position": [
+        0.6261346992055281,
+        0.6772524480079922
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "near_start-02",
+      "group": "near_start",
+      "position": [
+        0.6456602470682606,
+        0.7959916757910024
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "near_start-03",
+      "group": "near_start",
+      "position": [
+        0.6047742956086819,
+        0.7447223142930883
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "id_ring-02",
+      "group": "id_ring",
+      "position": [
+        0.6763247106629445,
+        0.834443696914438
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "id_ring-03",
+      "group": "id_ring",
+      "position": [
+        0.5741098320139979,
+        0.7062702931696527
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-04",
+      "group": "ood_ring",
+      "position": [
+        0.6891015704940628,
+        0.8504653723825362
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-05",
+      "group": "ood_ring",
+      "position": [
+        0.5451088939979805,
+        0.8342412941976369
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-06",
+      "group": "ood_ring",
+      "position": [
+        0.5613329721828797,
+        0.6902486177015545
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-07",
+      "group": "ood_ring",
+      "position": [
+        0.7053256486789621,
+        0.7064726958864538
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "near_start-04",
+      "group": "near_start",
+      "position": [
+        0.643495359890586,
+        0.7912225264070549
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "near_start-05",
+      "group": "near_start",
+      "position": [
+        0.6580873870213512,
+        0.7272906783235384
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "id_ring-04",
+      "group": "id_ring",
+      "position": [
+        0.6325513395425123,
+        0.8391714124696924
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "id_ring-05",
+      "group": "id_ring",
+      "position": [
+        0.6690314073694249,
+        0.679341792260901
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-08",
+      "group": "ood_ring",
+      "position": [
+        0.6279913310641482,
+        0.8591501149957913
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-09",
+      "group": "ood_ring",
+      "position": [
+        0.550897860825474,
+        0.7364565599734763
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-10",
+      "group": "ood_ring",
+      "position": [
+        0.673591415847789,
+        0.6593630897348021
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-11",
+      "group": "ood_ring",
+      "position": [
+        0.7506848860864632,
+        0.7820566447571171
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "near_start-06",
+      "group": "near_start",
+      "position": [
+        0.6672447284289819,
+        0.7315055554043242
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "near_start-07",
+      "group": "near_start",
+      "position": [
+        0.7263266400975165,
+        0.7030532063141295
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "id_ring-06",
+      "group": "id_ring",
+      "position": [
+        0.622933294677581,
+        0.7528448172219702
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "id_ring-07",
+      "group": "id_ring",
+      "position": [
+        0.7706380738489174,
+        0.6817139444964835
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-12",
+      "group": "ood_ring",
+      "position": [
+        0.6044701972811639,
+        0.7617361763126559
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-13",
+      "group": "ood_ring",
+      "position": [
+        0.6523288888098201,
+        0.6249638938771416
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-14",
+      "group": "ood_ring",
+      "position": [
+        0.7891011712453344,
+        0.6728225854057978
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-15",
+      "group": "ood_ring",
+      "position": [
+        0.7412424797166783,
+        0.8095948678413121
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "near_start-08",
+      "group": "near_start",
+      "position": [
+        0.6692197562975537,
+        0.6943762377575947
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "near_start-09",
+      "group": "near_start",
+      "position": [
+        0.7283016679660883,
+        0.7228285868477894
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "id_ring-08",
+      "group": "id_ring",
+      "position": [
+        0.6249083225461528,
+        0.6730369759399488
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "id_ring-09",
+      "group": "id_ring",
+      "position": [
+        0.7726131017174892,
+        0.7441678486654353
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-16",
+      "group": "ood_ring",
+      "position": [
+        0.6064452251497358,
+        0.664145616849263
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-17",
+      "group": "ood_ring",
+      "position": [
+        0.7432175075852501,
+        0.6162869253206068
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-18",
+      "group": "ood_ring",
+      "position": [
+        0.7910761991139063,
+        0.7530592077561211
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-19",
+      "group": "ood_ring",
+      "position": [
+        0.6543039166783919,
+        0.8009178992847773
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "near_start-10",
+      "group": "near_start",
+      "position": [
+        0.7210875638032165,
+        0.6491200184327758
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "near_start-11",
+      "group": "near_start",
+      "position": [
+        0.7356795909339816,
+        0.7130518665162923
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "id_ring-10",
+      "group": "id_ring",
+      "position": [
+        0.7101435434551427,
+        0.6011711323701383
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "id_ring-11",
+      "group": "id_ring",
+      "position": [
+        0.7466236112820555,
+        0.7610007525789297
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-20",
+      "group": "ood_ring",
+      "position": [
+        0.7055835349767786,
+        0.5811924298440394
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-21",
+      "group": "ood_ring",
+      "position": [
+        0.8282770899990937,
+        0.6582859000827136
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-22",
+      "group": "ood_ring",
+      "position": [
+        0.7511836197604195,
+        0.7809794551050286
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-23",
+      "group": "ood_ring",
+      "position": [
+        0.6284900647381044,
+        0.7038859848663545
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "near_start-12",
+      "group": "near_start",
+      "position": [
+        0.7380722184715625,
+        0.6537210023799214
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "near_start-13",
+      "group": "near_start",
+      "position": [
+        0.6971862670119839,
+        0.7049903638778354
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "id_ring-12",
+      "group": "id_ring",
+      "position": [
+        0.7687366820662465,
+        0.6152689812564857
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "id_ring-13",
+      "group": "id_ring",
+      "position": [
+        0.6665218034172999,
+        0.7434423850012711
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "ood_ring-24",
+      "group": "ood_ring",
+      "position": [
+        0.7815135418973648,
+        0.5992473057883876
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "ood_ring-25",
+      "group": "ood_ring",
+      "position": [
+        0.797737620082264,
+        0.74323998228447
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "ood_ring-26",
+      "group": "ood_ring",
+      "position": [
+        0.6537449435861816,
+        0.7594640604693692
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "ood_ring-27",
+      "group": "ood_ring",
+      "position": [
+        0.6375208654012823,
+        0.6154713839732868
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "along_trajectory-00",
+      "group": "along_trajectory",
+      "position": [
+        0.5925988012416467,
+        -0.4380006897985442
+      ],
+      "reference_demo": 6,
+      "sample_index": 454
+    },
+    {
+      "id": "along_trajectory-01",
+      "group": "along_trajectory",
+      "position": [
+        0.02510964362826332,
+        -0.4437008795120236
+      ],
+      "reference_demo": 5,
+      "sample_index": 756
+    },
+    {
+      "id": "along_trajectory-02",
+      "group": "along_trajectory",
+      "position": [
+        0.6103006319895511,
+        -0.40768494700740154
+      ],
+      "reference_demo": 0,
+      "sample_index": 525
+    },
+    {
+      "id": "along_trajectory-03",
+      "group": "along_trajectory",
+      "position": [
+        0.6865388362467354,
+        0.48118377882867563
+      ],
+      "reference_demo": 3,
+      "sample_index": 193
+    },
+    {
+      "id": "along_trajectory-04",
+      "group": "along_trajectory",
+      "position": [
+        0.11120004004239309,
+        -0.6307872625239344
+      ],
+      "reference_demo": 1,
+      "sample_index": 703
+    },
+    {
+      "id": "along_trajectory-05",
+      "group": "along_trajectory",
+      "position": [
+        0.6482363076637818,
+        -0.3708735785017795
+      ],
+      "reference_demo": 1,
+      "sample_index": 475
+    },
+    {
+      "id": "along_trajectory-06",
+      "group": "along_trajectory",
+      "position": [
+        0.6916382389444986,
+        0.20532616719483562
+      ],
+      "reference_demo": 1,
+      "sample_index": 266
+    },
+    {
+      "id": "along_trajectory-07",
+      "group": "along_trajectory",
+      "position": [
+        0.5085787910743902,
+        -0.510348193906862
+      ],
+      "reference_demo": 4,
+      "sample_index": 549
+    },
+    {
+      "id": "along_trajectory-08",
+      "group": "along_trajectory",
+      "position": [
+        0.6497624237038461,
+        0.4331284238080963
+      ],
+      "reference_demo": 0,
+      "sample_index": 216
+    },
+    {
+      "id": "along_trajectory-09",
+      "group": "along_trajectory",
+      "position": [
+        0.7132608918409602,
+        0.17351572123331158
+      ],
+      "reference_demo": 3,
+      "sample_index": 290
+    },
+    {
+      "id": "along_trajectory-10",
+      "group": "along_trajectory",
+      "position": [
+        0.6865692768457065,
+        0.6870485614158346
+      ],
+      "reference_demo": 3,
+      "sample_index": 121
+    },
+    {
+      "id": "along_trajectory-11",
+      "group": "along_trajectory",
+      "position": [
+        0.6278419992701516,
+        0.7423431965471857
+      ],
+      "reference_demo": 0,
+      "sample_index": 112
+    }
+  ],
+  "centers": [
+    [
+      0.6261346992055281,
+      0.7797149084446204
+    ],
+    [
+      0.6252172713384713,
+      0.7703569950420454
+    ],
+    [
+      0.6507913734559686,
+      0.7592566023652967
+    ],
+    [
+      0.6967856842632492,
+      0.7172793808592268
+    ],
+    [
+      0.698760712131821,
+      0.708602412302692
+    ],
+    [
+      0.728383577368599,
+      0.681085942474534
+    ],
+    [
+      0.7176292427417732,
+      0.6793556831288784
+    ]
+  ],
+  "motion_extent": 1.6393993669860505,
+  "near_start_radius": 0.03278798733972101,
+  "id_ring_radius": 0.08196996834930254,
+  "ood_ring_radius": 0.10246246043662816,
+  "id_radius_fractions": [
+    0.02,
+    0.05
+  ],
+  "id_groups": [
+    "demo_start",
+    "near_start",
+    "id_ring"
+  ],
+  "ood_radius_multiplier": 1.25,
+  "plot_bounds": [
+    [
+      -0.18503186673896094,
+      -0.7426675446620961
+    ],
+    [
+      0.9345753553710882,
+      0.9884756342532431
+    ]
+  ],
+  "integrator": {
+    "method": "RK45",
+    "horizon": 60.0,
+    "max_step": 0.25,
+    "rtol": 1e-06,
+    "atol": 1e-08,
+    "target_radius": 0.01,
+    "escape_radius": 8.0,
+    "max_rhs_evaluations": 20000
+  },
+  "interpretation": "ID: exact demonstration starts and offsets of 2% and 5% of the normalized motion bounding-box diagonal, around every demonstration start. OOD: radius 6.25%, 25% larger than the outer ID radius. Along-trajectory starts are a separate group. These geometric labels are not a statistical support guarantee."
+}
