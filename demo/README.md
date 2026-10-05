@@ -94,13 +94,15 @@ python -m plyds_lab train --motion Sine --policy-degree 4 --demos 5
 python -m plyds_lab train --method snds --motion Sine --epochs 3000 --seed 0 --demos 5
 python -m plyds_lab train --motion Multi_Models_1 --policy-degree 6 --lyapunov-degree 6 --demos 5 --cover-starts
 python -m plyds_lab batch
+python -m plyds_lab.snds_batch --workers 3
 python -m plyds_lab complexity --cover-starts
 python -m unittest plyds_lab.test_lab plyds_lab.test_neural -v
 ```
 
 `--cover-starts` selects demonstrations by deterministic farthest-start
 coverage. PLYDS defaults to the first demonstrations; SNDS defaults to coverage
-selection. SNDS trains on CPU in float64; the UI shows live epoch progress.
+selection. The webpage defaults to 500 SNDS epochs. SNDS trains on CPU in
+float64; the UI shows live epoch progress.
 Hyperparameter selection
 on held-out demonstrations is validation, not an untouched final test.
 
@@ -111,6 +113,14 @@ field figures. SNDS instead saves `model.pt`, plus `audit.npz` and
 The JSON also stores the Lyapunov grid, configurations, package
 versions, numerical diagnostics, and decimated paths for display. Runs and
 virtual environments are Git-ignored; copy results explicitly when sharing.
+
+The SNDS batch trains the same ten motions as `plyds_lab batch`, with the same
+first-five training / last-two held-out split. It uses 3,000 epochs and seed 0
+by default, and up to three concurrent CPU processes. Each completed run
+appears under **Saved experiments** after **Refresh results**. When the batch
+finishes, its combined PNG/PDF grid appears in **Experiment archive**. A new
+collection stores the settings, per-motion logs and a `summary.json` that
+records successes and failures. Each invocation creates a separate collection.
 
 ## Relationship to the updated theorem
 

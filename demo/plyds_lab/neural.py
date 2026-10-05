@@ -16,7 +16,7 @@ class SNDSConfig:
     n_demos: int = 5
     demo_selection: str = 'cover_starts'
     samples_per_demo: int = 200
-    epochs: int = 3000
+    epochs: int = 500
     seed: int = 0
     learning_rate: float = .001
     decay_rate: float = .01

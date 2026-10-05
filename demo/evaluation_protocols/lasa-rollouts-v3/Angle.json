@@ -1,0 +1,502 @@
+{
+  "version": "lasa-rollouts-v3",
+  "motion": "Angle",
+  "seed": 2732573360,
+  "data_fingerprint": "7ae2274b25399f16f1590362009b9501f00ee220dea06a088f44f9e6fe7c75ff",
+  "starts": [
+    {
+      "id": "id_trajectory-00",
+      "group": "id_trajectory",
+      "position": [
+        -0.45351357633677486,
+        0.794384539557354
+      ],
+      "reference_demo": 0,
+      "sample_index": 484,
+      "anchor_position": [
+        -0.47444382866101215,
+        0.7833525858732557
+      ],
+      "offset_fraction": 0.017140944624957744
+    },
+    {
+      "id": "id_trajectory-01",
+      "group": "id_trajectory",
+      "position": [
+        -0.45478041496538896,
+        0.8001306014260342
+      ],
+      "reference_demo": 4,
+      "sample_index": 479,
+      "anchor_position": [
+        -0.4403101830294925,
+        0.8081672247629172
+      ],
+      "offset_fraction": 0.011991725556141915
+    },
+    {
+      "id": "id_trajectory-02",
+      "group": "id_trajectory",
+      "position": [
+        -0.09316922887822565,
+        0.18256752072672328
+      ],
+      "reference_demo": 0,
+      "sample_index": 847,
+      "anchor_position": [
+        -0.07511320837324763,
+        0.18150895367646933
+      ],
+      "offset_fraction": 0.01310368329266415
+    },
+    {
+      "id": "id_trajectory-03",
+      "group": "id_trajectory",
+      "position": [
+        -0.4321955329954155,
+        0.5574706112688409
+      ],
+      "reference_demo": 6,
+      "sample_index": 534,
+      "anchor_position": [
+        -0.41691372824426376,
+        0.5504852119539456
+      ],
+      "offset_fraction": 0.01217318697397474
+    },
+    {
+      "id": "id_trajectory-04",
+      "group": "id_trajectory",
+      "position": [
+        -0.39477347670849794,
+        0.6889488397654636
+      ],
+      "reference_demo": 3,
+      "sample_index": 563,
+      "anchor_position": [
+        -0.3833960576516232,
+        0.7051510031640147
+      ],
+      "offset_fraction": 0.014343158512804103
+    },
+    {
+      "id": "id_trajectory-05",
+      "group": "id_trajectory",
+      "position": [
+        -0.79610649361624,
+        0.31818561994204514
+      ],
+      "reference_demo": 2,
+      "sample_index": 103,
+      "anchor_position": [
+        -0.8083975193222803,
+        0.2966822682240315
+      ],
+      "offset_fraction": 0.017944056019000204
+    },
+    {
+      "id": "id_trajectory-06",
+      "group": "id_trajectory",
+      "position": [
+        -0.7906563923949418,
+        0.45295867977877247
+      ],
+      "reference_demo": 1,
+      "sample_index": 237,
+      "anchor_position": [
+        -0.8124090289376301,
+        0.46535111332168144
+      ],
+      "offset_fraction": 0.01813732793672907
+    },
+    {
+      "id": "id_trajectory-07",
+      "group": "id_trajectory",
+      "position": [
+        -0.5688994824702851,
+        0.7884249847302849
+      ],
+      "reference_demo": 6,
+      "sample_index": 405,
+      "anchor_position": [
+        -0.5514275894888923,
+        0.7709163917391171
+      ],
+      "offset_fraction": 0.01791997298604571
+    },
+    {
+      "id": "id_trajectory-08",
+      "group": "id_trajectory",
+      "position": [
+        -0.35690257854323665,
+        0.6830735718505584
+      ],
+      "reference_demo": 5,
+      "sample_index": 520,
+      "anchor_position": [
+        -0.3783890953621615,
+        0.6971700941687495
+      ],
+      "offset_fraction": 0.0186176129915171
+    },
+    {
+      "id": "id_trajectory-09",
+      "group": "id_trajectory",
+      "position": [
+        -0.23285032932358343,
+        0.46441861386743255
+      ],
+      "reference_demo": 5,
+      "sample_index": 644,
+      "anchor_position": [
+        -0.24906616054724848,
+        0.4748125069050716
+      ],
+      "offset_fraction": 0.013954206487353335
+    },
+    {
+      "id": "id_trajectory-10",
+      "group": "id_trajectory",
+      "position": [
+        -0.17344793354018231,
+        0.4038135940137116
+      ],
+      "reference_demo": 5,
+      "sample_index": 682,
+      "anchor_position": [
+        -0.1966033186929204,
+        0.4039437898830184
+      ],
+      "offset_fraction": 0.01677587358729126
+    },
+    {
+      "id": "id_trajectory-11",
+      "group": "id_trajectory",
+      "position": [
+        -0.011838044727294463,
+        0.1641332821021837
+      ],
+      "reference_demo": 2,
+      "sample_index": 804,
+      "anchor_position": [
+        -0.03028171643958713,
+        0.1766951181556782
+      ],
+      "offset_fraction": 0.016166920996916724
+    },
+    {
+      "id": "ood_ring-00",
+      "group": "ood_ring",
+      "position": [
+        -0.9006248577056221,
+        -0.06993734567460111
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-01",
+      "group": "ood_ring",
+      "position": [
+        -0.9868936556304875,
+        0.01633145225026432
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-02",
+      "group": "ood_ring",
+      "position": [
+        -1.073162453555353,
+        -0.0699373456746011
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-03",
+      "group": "ood_ring",
+      "position": [
+        -0.9868936556304875,
+        -0.15620614359946655
+      ],
+      "reference_demo": 0
+    },
+    {
+      "id": "ood_ring-04",
+      "group": "ood_ring",
+      "position": [
+        -0.92064481912145,
+        0.00794033180004438
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-05",
+      "group": "ood_ring",
+      "position": [
+        -1.0418801970185478,
+        -0.005719614647522575
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-06",
+      "group": "ood_ring",
+      "position": [
+        -1.028220250570981,
+        -0.12695499254462048
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-07",
+      "group": "ood_ring",
+      "position": [
+        -0.9069848726738831,
+        -0.11329504609705354
+      ],
+      "reference_demo": 1
+    },
+    {
+      "id": "ood_ring-08",
+      "group": "ood_ring",
+      "position": [
+        -0.9472548384429373,
+        0.09147140051524079
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-09",
+      "group": "ood_ring",
+      "position": [
+        -1.0121640840047323,
+        -0.01183107201761351
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-10",
+      "group": "ood_ring",
+      "position": [
+        -0.9088616114718782,
+        -0.07674031757940859
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-11",
+      "group": "ood_ring",
+      "position": [
+        -0.843952365910083,
+        0.026562154953445685
+      ],
+      "reference_demo": 2
+    },
+    {
+      "id": "ood_ring-12",
+      "group": "ood_ring",
+      "position": [
+        -0.9800659122008465,
+        -0.02552335354991562
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-13",
+      "group": "ood_ring",
+      "position": [
+        -0.9397710396119956,
+        -0.14067948336440184
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-14",
+      "group": "ood_ring",
+      "position": [
+        -0.8246149097975094,
+        -0.10038461077555094
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-15",
+      "group": "ood_ring",
+      "position": [
+        -0.8649097823863603,
+        0.014771519038935282
+      ],
+      "reference_demo": 3
+    },
+    {
+      "id": "ood_ring-16",
+      "group": "ood_ring",
+      "position": [
+        -1.0386286495104875,
+        0.004347769139739603
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-17",
+      "group": "ood_ring",
+      "position": [
+        -0.9234725196960012,
+        -0.03594710344911134
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-18",
+      "group": "ood_ring",
+      "position": [
+        -0.8831776471071503,
+        0.07920902636537488
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-19",
+      "group": "ood_ring",
+      "position": [
+        -0.9983337769216365,
+        0.11950389895422583
+      ],
+      "reference_demo": 4
+    },
+    {
+      "id": "ood_ring-20",
+      "group": "ood_ring",
+      "position": [
+        -0.9973865155454579,
+        -0.06972071342879617
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-21",
+      "group": "ood_ring",
+      "position": [
+        -0.8940840430126036,
+        -0.004811467867001113
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-22",
+      "group": "ood_ring",
+      "position": [
+        -0.9589932885743987,
+        0.0984910046658532
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-23",
+      "group": "ood_ring",
+      "position": [
+        -1.062295761107253,
+        0.03358175910405817
+      ],
+      "reference_demo": 5
+    },
+    {
+      "id": "ood_ring-24",
+      "group": "ood_ring",
+      "position": [
+        -0.9455929434421434,
+        -0.10263712200215322
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "ood_ring-25",
+      "group": "ood_ring",
+      "position": [
+        -0.9319329969945764,
+        0.018598255894944675
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "ood_ring-26",
+      "group": "ood_ring",
+      "position": [
+        -1.0531683748916743,
+        0.032258202342511665
+      ],
+      "reference_demo": 6
+    },
+    {
+      "id": "ood_ring-27",
+      "group": "ood_ring",
+      "position": [
+        -1.0668283213392413,
+        -0.08897717555458623
+      ],
+      "reference_demo": 6
+    }
+  ],
+  "id_groups": [
+    "id_trajectory"
+  ],
+  "id_offset_fractions": [
+    0.01,
+    0.02
+  ],
+  "anchor_source": "lasa-rollouts-v2",
+  "ood_source": "lasa-rollouts-v2",
+  "ood_ring_radius": 0.08626879792486543,
+  "centers": [
+    [
+      -0.9868936556304875,
+      -0.06993734567460111
+    ],
+    [
+      -0.9744325348462155,
+      -0.05950733037228805
+    ],
+    [
+      -0.9280582249574078,
+      0.007365541467916094
+    ],
+    [
+      -0.9023404109991779,
+      -0.06295398216273328
+    ],
+    [
+      -0.9609031483088188,
+      0.04177839775255725
+    ],
+    [
+      -0.9781899020599283,
+      0.014385145618528522
+    ],
+    [
+      -0.9993806591669089,
+      -0.03518945982982078
+    ]
+  ],
+  "motion_extent": 1.3803007667978469,
+  "plot_bounds": [
+    [
+      -1.1482838253042278,
+      -0.23132751534834128
+    ],
+    [
+      0.07512137174887502,
+      0.9572704217894092
+    ]
+  ],
+  "integrator": {
+    "method": "RK45",
+    "horizon": 60.0,
+    "max_step": 0.25,
+    "rtol": 1e-06,
+    "atol": 1e-08,
+    "target_radius": 0.01,
+    "escape_radius": 8.0,
+    "max_rhs_evaluations": 20000
+  },
+  "interpretation": "ID: the 12 saved along-trajectory anchors, each perturbed by a seeded random direction and an offset magnitude uniformly between 1% and 2% of the normalized motion bounding-box diagonal. No demonstration-start ID group. The 28 OOD records are copied exactly from v2 (6.25% radius about demonstration starts). These are geometric labels, not statistical support estimates."
+}

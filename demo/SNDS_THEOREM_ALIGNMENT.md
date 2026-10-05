@@ -42,9 +42,9 @@ adding a denominator epsilon would change the stated construction.
 ## Training and evidence
 
 Training uses CPU float64, Adam, minibatches of 128, gradient norm clipping
-at 0.5, and a linear learning-rate schedule from 0.001 to 0.00001. The default
-is 3,000 epochs, seed 0, five demonstrations selected to cover their starting
-regions, and 200 evenly spaced samples per demonstration. The checkpoint with
+at 0.5, and a linear learning-rate schedule from 0.001 to 0.00001. The browser
+defaults to 500 epochs, seed 0, five demonstrations selected to cover their
+starting regions, and 200 evenly spaced samples per demonstration. The checkpoint with
 the lowest full training MSE at the recorded checkpoints is retained; held-out
 demonstrations do not select the checkpoint.
 
@@ -71,8 +71,8 @@ with tracking error. A finite rollout failure remains in the score denominator.
 
 ## Verified demo run (2026-10-05)
 
-The browser completed a Sine run with the defaults above on Windows, Python
-3.10.22 and PyTorch 2.0.1+cpu. Training took 759 seconds; training, evaluation
+The browser completed a Sine run with 3,000 epochs and the other settings above
+on Windows, Python 3.10.22 and PyTorch 2.0.1+cpu. Training took 759 seconds; training, evaluation
 and saving together took 857 seconds on this machine.
 
 | Measurement | Result |
