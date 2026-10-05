@@ -1,13 +1,15 @@
 # Learning Stable Imitation Policies
 
-## Interactive PLYDS demo
+## Interactive PLYDS / SNDS demo
 
-Train a LASA motion in your browser. Pick the motion, polynomial degrees and
-number of demonstrations, then click **Train model** to see the vector field,
+Train a LASA motion in your browser. Choose **PLYDS** or **SNDS · revised theorem**,
+pick the motion and number of demonstrations, then click **Train model** to see the vector field,
 blue Lyapunov heatmap, ID/OOD rollouts and elapsed time. Runs are saved locally.
-**CPU only · SCS · no MOSEK license or frontend build.**
+**CPU only · SCS for PLYDS · PyTorch for SNDS · no MOSEK license or frontend build.**
 
-<a href="demo/preview.png"><img src="demo/preview.png" alt="PLYDS browser demo showing a blue Lyapunov heatmap, vector field, and ID/OOD rollouts for GShape" width="850"></a>
+<a href="demo/snds-preview.jpg"><img src="demo/snds-preview.jpg" alt="Revised SNDS browser demo trained on Sine with CPU, neural Lyapunov heatmap, vector field and ID/OOD rollouts" width="850"></a>
+
+[PLYDS preview](demo/preview.png)
 
 ### Run locally
 
@@ -40,9 +42,12 @@ running; Ctrl+C stops the server. Already cloned? Start with `cd demo` from
 the repository root. Use `serve --port 8766` if port 8765 is occupied.
 
 [Demo guide, CLI and evaluation protocol](demo/README.md) ·
-[Updated theorem: implementation and limitations](demo/THEOREM_ALIGNMENT.md)
+[PLYDS theorem alignment](demo/THEOREM_ALIGNMENT.md) ·
+[Revised SNDS theorem alignment](demo/SNDS_THEOREM_ALIGNMENT.md)
 
-The demo models the updated scalar SOS conditions. Numerical solver checks and
+PLYDS models the updated scalar SOS conditions. SNDS uses a smooth convex
+neural potential, value-and-gradient anchoring, and exact strict-decay projection.
+Numerical checks and
 successful rollouts do not establish a rigorous global stability certificate.
 
 ## Overview
@@ -68,7 +73,7 @@ The original SNDS and PLYDS scripts use the environment below. The browser demo 
 To acquire a better understanding of the environment and features, you just need to clone the repository into your local machine. At first glance, the structure of the project appears below.
 
 ```bash
-    ├── demo         # Local PLYDS browser demo, tests and evaluation protocols.
+    ├── demo         # Local PLYDS / SNDS browser demo, tests and evaluation protocols.
     ├── src          # Python source files of the project.
     ├── exp          # Targeted experiments with various planning methods.
     ├── data         # Figures and other data.

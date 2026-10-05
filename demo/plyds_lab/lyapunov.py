@@ -1,4 +1,4 @@
-"""Sample the saved Lyapunov polynomial, without refitting or clipping values."""
+"""Sample the saved polynomial or neural Lyapunov function without clipping."""
 import numpy as np
 from .polynomial import features
 
@@ -8,8 +8,10 @@ def sample_lyapunov(model, bounds, resolution=121):
     xs=np.linspace(bounds[0,0],bounds[1,0],resolution)
     ys=np.linspace(bounds[0,1],bounds[1,1],resolution)
     xx,yy=np.meshgrid(xs,ys)
-    values=(features(np.column_stack([xx.ravel(),yy.ravel()]),model['lyapunov_basis'])
-            @ model['vcoeff']).reshape(resolution,resolution)
+    points=np.column_stack([xx.ravel(),yy.ravel()])
+    neural=model.get('config',{}).get('method')=='snds'
+    values=(model['policy'].potential(points) if neural else
+            features(points,model['lyapunov_basis']) @ model['vcoeff']).reshape(resolution,resolution)
     if not np.isfinite(values).all():raise ValueError('Nonfinite Lyapunov values')
     # Signed asinh keeps zero and negative numerical values visible, while
     # resolving the target region when a high-degree polynomial grows quickly.
@@ -21,4 +23,4 @@ def sample_lyapunov(model, bounds, resolution=121):
     return dict(bounds=bounds.tolist(),resolution=resolution,values=values.tolist(),
                 scale=scale,transformed_range=[low,high],ticks=ticks.tolist(),
                 minimum=float(values.min()),maximum=float(values.max()),
-                normalization='asinh',source='saved polynomial coefficients')
+                normalization='asinh',source='saved neural potential' if neural else 'saved polynomial coefficients')

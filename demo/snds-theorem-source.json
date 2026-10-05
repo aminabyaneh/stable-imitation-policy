@@ -1,0 +1,10 @@
+{
+  "checked_date": "2026-10-05",
+  "source_repository": "aminabyaneh/phd_thesis",
+  "source_state": "local working tree, including uncommitted theorem revisions",
+  "theorem_label": "stability_proposition",
+  "files": {
+    "past/snds/methodology.tex": "d4de6142a4b209cb4bdfba1ffaf52dfff76d80303049eebf3875dc1b268951f2",
+    "past/snds/supplements.tex": "1f6ce2dcb4bc07267911874c08ca7b637f4d1b0e41bf6d338dc30c04d7b6744c"
+  }
+}

@@ -43,10 +43,13 @@ def batch(hard=False,coverage=False):
 
 
 def main():
-    parser=argparse.ArgumentParser(description="PLYDS Lab: SCS training, fixed motion evaluation, and browser UI")
+    parser=argparse.ArgumentParser(description="PLYDS / SNDS Lab: CPU training, fixed motion evaluation, and browser UI")
     sub=parser.add_subparsers(dest="command",required=True)
     sub.add_parser("batch");complexity=sub.add_parser("complexity");complexity.add_argument("--cover-starts",action="store_true")
     training=sub.add_parser("train")
+    training.add_argument('--method',choices=['plyds','snds'],default='plyds')
+    training.add_argument('--epochs',type=int,default=3000)
+    training.add_argument('--seed',type=int,default=0)
     training.add_argument("--motion",default="Sine")
     training.add_argument("--policy-degree",type=int,default=4)
     training.add_argument("--lyapunov-degree",type=int,default=2)
@@ -56,6 +59,9 @@ def main():
     serving=sub.add_parser("serve");serving.add_argument("--port",type=int,default=8765)
     args=parser.parse_args()
     if args.command in ("batch","complexity"):batch(args.command=="complexity",getattr(args,"cover_starts",False))
+    elif args.command=='train' and args.method=='snds':
+        from .neural import SNDSConfig
+        run(SNDSConfig(motion=args.motion,n_demos=args.demos,epochs=args.epochs,seed=args.seed))
     elif args.command=="train":run(TrainingConfig(motion=args.motion,policy_degree=args.policy_degree,
         lyapunov_degree=args.lyapunov_degree,n_demos=args.demos,
         learn_lyapunov=args.learn_lyapunov or args.lyapunov_degree>2,demo_selection="cover_starts" if args.cover_starts else "first"))

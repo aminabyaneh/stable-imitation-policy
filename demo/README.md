@@ -1,13 +1,17 @@
-# PLYDS motion notebook
+# PLYDS / SNDS motion notebook
 
-A local SCS-based trainer and browser demo for all 30 LASA handwriting motions.
-Select the motion, policy degree, Lyapunov degree, and 1–7 demonstrations; click
+A local CPU trainer and browser demo for all 30 LASA handwriting motions.
+Choose **PLYDS** (SCS polynomial fitting) or **SNDS · revised theorem** (neural
+policy with a smooth, gradient-anchored Lyapunov function), then the motion
+and 1–7 demonstrations. PLYDS exposes polynomial degrees; SNDS exposes epochs,
+seed, learning rate, positive decay rate and quadratic margin. Click
 **Train model** to fit, integrate, and save a new experiment.
 
 The plot includes a vector field, a blue Lyapunov heatmap with equal-value
 contours, demonstrations, and independently switchable ID/OOD rollouts.
 Metrics show held-out velocity error, target-reaching rates, and elapsed time.
-Saved experiments can be reopened without retraining.
+Saved experiments can be reopened without retraining. The page URL retains the
+selected run for bookmarking on the same machine.
 
 ## Quick start
 
@@ -64,7 +68,7 @@ independently divided by their maximum vector norms. Rollout time is therefore
 normalized, not physical robot time. RK45 runs to target radius 0.01 or horizon
 60, with escape radius 8 and an RHS budget of 20,000. Failures stay in the score
 denominator. Arrows show direction, not speed. Heatmap values come from the
-actual saved Lyapunov polynomial; the labeled asinh colour scale preserves
+actual saved Lyapunov polynomial or neural potential; the labeled asinh colour scale preserves
 negative numerical values rather than clipping them.
 
 Motion-specific JSON plans live in `evaluation_protocols/`. Existing plans are
@@ -87,29 +91,38 @@ Run from `demo/` with the environment activated (or use its Python executable):
 
 ```sh
 python -m plyds_lab train --motion Sine --policy-degree 4 --demos 5
+python -m plyds_lab train --method snds --motion Sine --epochs 3000 --seed 0 --demos 5
 python -m plyds_lab train --motion Multi_Models_1 --policy-degree 6 --lyapunov-degree 6 --demos 5 --cover-starts
 python -m plyds_lab batch
 python -m plyds_lab complexity --cover-starts
-python -m unittest plyds_lab.test_lab -v
+python -m unittest plyds_lab.test_lab plyds_lab.test_neural -v
 ```
 
 `--cover-starts` selects demonstrations by deterministic farthest-start
-coverage. The default uses the first demonstrations. Hyperparameter selection
+coverage. PLYDS defaults to the first demonstrations; SNDS defaults to coverage
+selection. SNDS trains on CPU in float64; the UI shows live epoch progress.
+Hyperparameter selection
 on held-out demonstrations is validation, not an untouched final test.
 
 Each run gets a new directory under `runs/plyds-lab/`, containing `model.npz`,
 full adaptive `rollouts.npz`, `result.json`, `protocol.json`, and PNG/PDF vector
-field figures. The JSON also stores the Lyapunov grid, configurations, package
+field figures. SNDS instead saves `model.pt`, plus `audit.npz` and
+`training-data.npz`. Both methods share this archive and evaluation protocol.
+The JSON also stores the Lyapunov grid, configurations, package
 versions, numerical diagnostics, and decimated paths for display. Runs and
 virtual environments are Git-ignored; copy results explicitly when sharing.
 
 ## Relationship to the updated theorem
 
-**The modeled constraints follow the corrected scalar SOS theorem. Returned
+**PLYDS constraints follow the corrected scalar SOS theorem. Returned
 floating-point solutions are not rigorously certified.**
 See [the theorem-to-code comparison](THEOREM_ALIGNMENT.md) for the matching
 conditions and the differences in polynomial bases, objective, and search.
 Every result explicitly records `certificate_verified: false`.
+
+SNDS follows the revised smooth, strongly convex, gradient-anchored construction
+with exact strict-decay projection. See [SNDS theorem alignment](SNDS_THEOREM_ALIGNMENT.md)
+for the equations, architecture, numerical audit, and limits of the guarantee.
 
 The demo is self-contained in `plyds_lab/` and does not call the original
 `src/` or `exp/` solvers. Those historical implementations have not been

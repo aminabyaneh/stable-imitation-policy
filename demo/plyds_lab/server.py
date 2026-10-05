@@ -14,11 +14,30 @@ from .runner import RUNS,run,load_run
 from .lyapunov import sample_lyapunov
 from .plotting import view_bounds
 from .solver import TrainingConfig
+from .neural import SNDSConfig
 
 WEB=Path(__file__).parent/"web"
 JOBS={}
 LOCK=threading.Lock()
 QUEUE=ThreadPoolExecutor(max_workers=1)
+
+
+def parse_config(payload):
+    if not isinstance(payload,dict):raise ValueError('Settings must be an object')
+    payload=dict(payload)
+    method=payload.pop('method','plyds')
+    common={'motion','n_demos','samples_per_demo','demo_selection'}
+    if method=='snds':
+        allowed=common|{'epochs','seed','learning_rate','decay_rate','quadratic_margin'}
+        cls=SNDSConfig
+    elif method=='plyds':
+        allowed=common|{'policy_degree','lyapunov_degree','learn_lyapunov','alternating_steps'}
+        cls=TrainingConfig
+    else:raise ValueError('Unknown method')
+    if set(payload)-allowed:raise ValueError('Unexpected training setting')
+    config=cls(**payload);config.validate()
+    if config.motion not in MOTIONS:raise ValueError('Unknown motion')
+    return config
 
 
 def safe_run_path(relative):
@@ -58,7 +77,7 @@ class Handler(BaseHTTPRequestHandler):
         parsed=urlparse(self.path)
         try:
             if parsed.path=="/api/motions":
-                return self.respond(dict(motions=MOTIONS,defaults=asdict(TrainingConfig()),solver="SCS"))
+                return self.respond(dict(motions=MOTIONS,defaults=asdict(TrainingConfig()),snds_defaults=asdict(SNDSConfig()),solver="SCS",methods=['plyds','snds']))
             if parsed.path=="/api/runs":
                 result=[]
                 for path in sorted(RUNS.rglob("result.json"),key=lambda p:p.stat().st_mtime,reverse=True):
@@ -98,10 +117,7 @@ class Handler(BaseHTTPRequestHandler):
             length=int(self.headers.get("Content-Length",0))
             if not 0<length<16384:raise ValueError("Invalid request size")
             payload=json.loads(self.rfile.read(length))
-            allowed={"motion","policy_degree","lyapunov_degree","n_demos","learn_lyapunov","alternating_steps","samples_per_demo","demo_selection"}
-            if set(payload)-allowed:raise ValueError("Unexpected training setting")
-            config=TrainingConfig(**payload);config.validate()
-            if config.motion not in MOTIONS:raise ValueError("Unknown motion")
+            config=parse_config(payload)
             with LOCK:
                 if sum(j["state"] in ("running","queued") for j in JOBS.values())>=3:
                     return self.respond({"error":"Queue full; wait for a training job to finish"},429)
@@ -115,7 +131,7 @@ class Handler(BaseHTTPRequestHandler):
 def serve(port=8765):
     RUNS.mkdir(parents=True,exist_ok=True)
     server=ThreadingHTTPServer(("127.0.0.1",port),Handler)
-    print(f"PLYDS Lab: http://127.0.0.1:{server.server_port}",flush=True)
+    print(f"PLYDS / SNDS Lab: http://127.0.0.1:{server.server_port}",flush=True)
     try:server.serve_forever()
     except KeyboardInterrupt:pass
     finally:server.server_close()

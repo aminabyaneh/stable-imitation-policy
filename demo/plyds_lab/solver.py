@@ -152,4 +152,5 @@ def train(config: TrainingConfig, callback=lambda message: None):
 
 
 def predict(model, points):
+    if model.get('config',{}).get('method')=='snds':return model['policy'].predict(points)
     return features(points,model["policy_basis"]) @ model["coefficients"]
