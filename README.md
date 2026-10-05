@@ -2,12 +2,12 @@
 
 ## Interactive PLYDS / SNDS demo
 
-Train a LASA motion in your browser. Choose **PLYDS** or **SNDS · revised theorem**,
+Train a LASA motion in your browser. Choose **PLYDS** or **SNDS**,
 pick the motion and number of demonstrations, then click **Train model** to see the vector field,
 blue Lyapunov heatmap, ID/OOD rollouts and elapsed time. Runs are saved locally.
 **CPU only · SCS for PLYDS · PyTorch for SNDS · no MOSEK license or frontend build.**
 
-<a href="demo/snds-preview.jpg"><img src="demo/snds-preview.jpg" alt="Revised SNDS browser demo trained on Sine with CPU, neural Lyapunov heatmap, vector field and ID/OOD rollouts" width="850"></a>
+<a href="demo/snds-preview.jpg"><img src="demo/snds-preview.jpg" alt="SNDS browser demo trained on Sine with CPU, neural Lyapunov heatmap, vector field and ID/OOD rollouts" width="850"></a>
 
 [PLYDS preview](demo/preview.png)
 
@@ -43,7 +43,7 @@ the repository root. Use `serve --port 8766` if port 8765 is occupied.
 
 [Demo guide, CLI and evaluation protocol](demo/README.md) ·
 [PLYDS theorem alignment](demo/THEOREM_ALIGNMENT.md) ·
-[Revised SNDS theorem alignment](demo/SNDS_THEOREM_ALIGNMENT.md)
+[SNDS theorem alignment](demo/SNDS_THEOREM_ALIGNMENT.md)
 
 PLYDS models the updated scalar SOS conditions. SNDS uses a smooth convex
 neural potential, value-and-gradient anchoring, and exact strict-decay projection.

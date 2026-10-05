@@ -27,8 +27,8 @@ if($('showDemos').checked)current.demonstrations.forEach((d,i)=>path(d,{stroke:'
 const [tx,ty]=point([0,0]);el('circle',{cx:tx,cy:ty,r:5,fill:'#142d38',stroke:'white','stroke-width':2});let label=el('text',{x:tx+9,y:ty-8,fill:'#142d38','font-size':11});label.textContent='target';
 let xlabel=el('text',{x:450,y:oy+height+46,fill:'#617681','font-size':12,'text-anchor':'middle'});xlabel.textContent='Normalized x';}
 const isNeural=c=>c.method==='snds';
-const modelLabel=c=>isNeural(c)?'SNDS · revised theorem':`PLYDS · P${c.policy_degree}/V${c.lyapunov_degree}`;
-function show(data,path){current=data;currentPath=path;const c=data.config,m=data.metrics,g=data.groups;$('plotTitle').textContent=`${c.motion.replaceAll('_',' ')} · vector field & rollouts`;$('plotSubtitle').textContent=isNeural(c)?`SNDS · revised theorem · CPU · ${c.epochs} epochs · ${c.n_demos} training demonstrations`:`Policy degree ${c.policy_degree} · Lyapunov degree ${c.lyapunov_degree} (${c.learn_lyapunov?'learned':'fixed'}) · ${c.n_demos} training demonstrations`;
+const modelLabel=c=>isNeural(c)?'SNDS':`PLYDS · P${c.policy_degree}/V${c.lyapunov_degree}`;
+function show(data,path){current=data;currentPath=path;const c=data.config,m=data.metrics,g=data.groups;$('plotTitle').textContent=`${c.motion.replaceAll('_',' ')} · vector field & rollouts`;$('plotSubtitle').textContent=isNeural(c)?`SNDS · CPU · ${c.epochs} epochs · ${c.n_demos} training demonstrations`:`Policy degree ${c.policy_degree} · Lyapunov degree ${c.lyapunov_degree} (${c.learn_lyapunov?'learned':'fixed'}) · ${c.n_demos} training demonstrations`;
 const version=data.protocol.version,legacy=!['lasa-rollouts-v3','lasa-rollouts-v4'].includes(version),ood=g.ood_all||g.ood_ring;$('showAlong').parentElement.hidden=!legacy;
 $('idCount').textContent=`${g.id_all.count} ${legacy?'archived ID starts':'trajectory starts · 1–2% offsets'}`;
 $('oodCount').textContent=version==='lasa-rollouts-v4'?`${g.ood_ring.count} ring + ${g.ood_trajectory.count} trajectory starts`:`${ood.count} archived OOD starts`;

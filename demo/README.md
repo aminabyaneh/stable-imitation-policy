@@ -1,7 +1,7 @@
 # PLYDS / SNDS motion notebook
 
 A local CPU trainer and browser demo for all 30 LASA handwriting motions.
-Choose **PLYDS** (SCS polynomial fitting) or **SNDS · revised theorem** (neural
+Choose **PLYDS** (SCS polynomial fitting) or **SNDS** (neural
 policy with a smooth, gradient-anchored Lyapunov function), then the motion
 and 1–7 demonstrations. PLYDS exposes polynomial degrees; SNDS exposes epochs,
 seed, learning rate, positive decay rate and quadratic margin. Click
@@ -120,7 +120,7 @@ See [the theorem-to-code comparison](THEOREM_ALIGNMENT.md) for the matching
 conditions and the differences in polynomial bases, objective, and search.
 Every result explicitly records `certificate_verified: false`.
 
-SNDS follows the revised smooth, strongly convex, gradient-anchored construction
+SNDS follows the smooth, strongly convex, gradient-anchored construction
 with exact strict-decay projection. See [SNDS theorem alignment](SNDS_THEOREM_ALIGNMENT.md)
 for the equations, architecture, numerical audit, and limits of the guarantee.
 

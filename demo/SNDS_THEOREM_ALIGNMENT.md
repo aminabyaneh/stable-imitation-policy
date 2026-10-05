@@ -1,6 +1,6 @@
-# Revised SNDS in the motion notebook
+# SNDS in the motion notebook
 
-The browser's **SNDS · revised theorem** option implements the corrected
+The browser's **SNDS** option implements the
 `stability_proposition` in the thesis SNDS chapter. Its source hashes are in
 `snds-theorem-source.json`. This implementation is in `plyds_lab/neural.py`;
 the historical `src/` and `exp/` implementations remain unchanged.

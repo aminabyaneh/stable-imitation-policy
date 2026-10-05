@@ -57,7 +57,7 @@ def legend(fig):
 def save_single(model,evaluation,directory):
     fig,ax=plt.subplots(figsize=(8,7),layout="constrained")
     cfg=model["config"]
-    title=f"{cfg['motion']} · SNDS · revised theorem · CPU" if cfg.get('method')=='snds' else f"{cfg['motion']} · policy {cfg['policy_degree']} / Lyapunov {cfg['lyapunov_degree']}"
+    title=f"{cfg['motion']} · SNDS · CPU" if cfg.get('method')=='snds' else f"{cfg['motion']} · policy {cfg['policy_degree']} / Lyapunov {cfg['lyapunov_degree']}"
     draw_panel(ax,model,evaluation,title)
     legend(fig)
     fig.savefig(directory/"vector-field.png",dpi=150)
