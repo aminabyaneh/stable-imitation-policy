@@ -1,5 +1,50 @@
 # Learning Stable Imitation Policies
 
+## Interactive PLYDS demo
+
+Train a LASA motion in your browser. Pick the motion, polynomial degrees and
+number of demonstrations, then click **Train model** to see the vector field,
+blue Lyapunov heatmap, ID/OOD rollouts and elapsed time. Runs are saved locally.
+**CPU only · SCS · no MOSEK license or frontend build.**
+
+<a href="demo/preview.png"><img src="demo/preview.png" alt="PLYDS browser demo showing a blue Lyapunov heatmap, vector field, and ID/OOD rollouts for GShape" width="850"></a>
+
+### Run locally
+
+Install **Python 3.10**, then run these commands on macOS/Linux:
+
+```sh
+git clone https://github.com/aminabyaneh/stable-imitation-policy.git
+cd stable-imitation-policy/demo
+python3.10 -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements-lock.txt
+python -m plyds_lab serve
+```
+
+<details>
+<summary>Windows PowerShell commands</summary>
+
+```powershell
+git clone https://github.com/aminabyaneh/stable-imitation-policy.git
+cd stable-imitation-policy/demo
+py -3.10 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
+.\.venv\Scripts\python.exe -m plyds_lab serve
+```
+
+</details>
+
+Open **http://127.0.0.1:8765/** and click **Train model**. Keep the terminal
+running; Ctrl+C stops the server. Already cloned? Start with `cd demo` from
+the repository root. Use `serve --port 8766` if port 8765 is occupied.
+
+[Demo guide, CLI and evaluation protocol](demo/README.md) ·
+[Updated theorem: implementation and limitations](demo/THEOREM_ALIGNMENT.md)
+
+The demo models the updated scalar SOS conditions. Numerical solver checks and
+successful rollouts do not establish a rigorous global stability certificate.
+
 ## Overview
 
 Imitation learning can be leveraged to tackle complex motion planning problems by training a policy to imitate an expert's behavior. However, relying solely on the expert's data can result in unsafe behaviors when the robot encounters unknown regions of the state space. To address this issue, we try various techniques for learning a stable nonlinear dynamical system as a motion planning policy.
@@ -14,31 +59,16 @@ Conference on Robot Learning, 2023.
 <img src="fig/rebutt/plyds_7dem_sine.png" alt="" width="400" height="400">
 <img src="fig/rebutt/plyds_7dem_p.png" alt="" width="400" height="400">
 
-## Getting started
+## Original experiments
 
-This section provides instructions on reproducibility and basic functionalities of the repository.
-
-### Interactive PLYDS demo
-
-The [PLYDS motion notebook](demo/README.md) provides a local browser interface
-for training LASA motions with SCS. Choose policy and Lyapunov degrees and the
-number of demonstrations, then inspect vector fields, a blue Lyapunov heatmap,
-ID/OOD rollouts, fitting errors, and elapsed time. Models and results are saved
-locally. No MOSEK license, GPU, or frontend build is required.
-
-See [demo setup and launch instructions](demo/README.md#quick-start) and the
-[comparison with the updated stability theorem](demo/THEOREM_ALIGNMENT.md).
-The demo models the corrected scalar SOS conditions, but its floating-point
-checks do not establish a rigorous global stability certificate. The original
-`src/` and `exp/` implementations remain separate.
-
-![PLYDS motion notebook with blue Lyapunov heatmap](demo/preview.png)
+The original SNDS and PLYDS scripts use the environment below. The browser demo uses the separate setup above.
 
 ### Repository structure
 
 To acquire a better understanding of the environment and features, you just need to clone the repository into your local machine. At first glance, the structure of the project appears below.
 
 ```bash
+    ├── demo         # Local PLYDS browser demo, tests and evaluation protocols.
     ├── src          # Python source files of the project.
     ├── exp          # Targeted experiments with various planning methods.
     ├── data         # Figures and other data.
